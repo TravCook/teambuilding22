@@ -4,16 +4,25 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 const  PlayerCard = (props) => {
+
+  const imgFunction = () => {
+    if(props.cardInfo.img){
+      return (
+        <Card.Img  variant="top" src={props.cardInfo.img} />
+      )
+    }
+  }
+
   return(
     <Card>
-      <Card.Img  variant="top" src={props.cardInfo.img} />
+      {imgFunction()}
       <Card.Title>{props.cardInfo.name}</Card.Title>
       <Row>
-        <Col lg={4}>
-          <Card.Text>OVR: {props.cardInfo.ovr}</Card.Text>
+        <Col lg={3}>
+          <Card.Text>{props.cardInfo.ovr}</Card.Text>
         </Col>
         <Col>
-          <Card.Text>Team: {props.cardInfo.team}</Card.Text>
+          <Card.Text>{props.cardInfo.team}</Card.Text>
         </Col>
       </Row>
     </Card>

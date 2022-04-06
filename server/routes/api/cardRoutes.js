@@ -36,7 +36,7 @@ router.route('/').get((req, res) => {
       diamonds: diamonds,
       golds: golds,
       silvers: silvers,
-      bronze: bronzes,
+      bronzes: bronzes,
       commons: commons,
       allPlayers: players
     }
