@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 
 const  PlayerCard = (props) => {
   return(
-    <Card style={{width: '20%'}}>
+    <Card>
       <Card.Img  variant="top" src={props.cardInfo.img} />
       <Card.Title>{props.cardInfo.name}</Card.Title>
       <Row>
