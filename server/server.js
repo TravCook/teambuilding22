@@ -6,7 +6,7 @@ require('dotenv').config()
 const app = express();
 const PORT = process.env.PORT || 3001;
 // Set up body parsing, static, and route middleware
-app.use(express.json());
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(routes);

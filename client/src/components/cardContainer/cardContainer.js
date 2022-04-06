@@ -9,13 +9,18 @@ const  CardContainer = (props) => {
   return(
     <Container>
       <Row>
-
         {props.players.map((card) => {
-          return(  
-            <Col lg={2} sm={6}>  
-              <PlayerCard cardInfo={card} />
-            </Col>
-          )
+           if(props.proprarity.includes(card.rarity)){
+             if(props.propposition.includes(card.display_position)){
+              // || props.propposition.includes(card.display_secondary_positions)
+              return(  
+                <Col lg={2} sm={6}>  
+                  <PlayerCard cardInfo={card} />
+                </Col>
+              )
+             }
+           }
+          
         })}
 
       </Row>

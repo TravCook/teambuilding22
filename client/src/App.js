@@ -3,19 +3,25 @@ import React, {useState, useEffect} from 'react'
 import './App.css';
 import {Dropdown} from 'react-bootstrap'
 import CardContainer from './components/cardContainer/cardContainer.js';
+import OptionsMenu from './components/optionsMenu/optionsMenu';
 
 
 
 
 
 function App() {
-  const [diamondPlayers, setDiamonds] = useState()
-  const [bronzePlayers, setBronzes] = useState()
-  const [goldPlayers, setGolds] = useState()
-  const [silverPlayers, setSilvers] = useState()
-  const [commonPlayers, setCommons] = useState()
+  // const [diamondPlayers, setDiamonds] = useState()
+  // const [bronzePlayers, setBronzes] = useState()
+  // const [goldPlayers, setGolds] = useState()
+  // const [silverPlayers, setSilvers] = useState()
+  // const [commonPlayers, setCommons] = useState()
+  const [filteredPlayers, setFilterPlayers] = useState()
   const [allPlayers, setPlayers] = useState()
   const [filterStatus, setFilter] = useState()
+  const [rarityFilter, setRarity] = useState()
+  const [positionFilter, setPosition] = useState()
+  let rarity =[]
+  let position =[]
 
   const getAllCards = () => {
     console.log("this function runs")
@@ -23,64 +29,65 @@ function App() {
     .then((res) => 
       res.json()
     ).then((data) => {
-      setDiamonds(data.diamonds)
-      setBronzes(data.bronzes)
-      setGolds(data.golds)
-      setSilvers(data.silvers)
-      setCommons(data.commons)
       setPlayers(data.allPlayers)
     })
   }
-  const logging = () => {
-    if(filterStatus === "diamond"){
-      return(
-        <CardContainer players={diamondPlayers} />
-      )
-    }else if(filterStatus === "gold"){
-      return(
-        <CardContainer players={goldPlayers} />
-      )
-    }else if(filterStatus === "silver"){
-      return(
-        <CardContainer players={silverPlayers} />
-      )
-    }else if(filterStatus === "bronze"){
-      return(
-        <CardContainer players={bronzePlayers} />
-      )
-    }else if(filterStatus === "common"){
-      return(
-        <CardContainer players={commonPlayers} />
-      )
+  const formSubmit = (e) => {
+    e.preventDefault();
+    // console.log("rarity: " + rarity)
+    // console.log("position: " + position)
+    if(rarity && position){
+      const submitPos = position
+      const submitRar = rarity
+      setPosition(submitPos)
+      setRarity(submitRar)
+      console.log(rarityFilter + " " + positionFilter)
     }
+    cardRender()
+    
   }
 
+  const cardRender = () => {
+    console.log(rarityFilter ,  positionFilter , allPlayers)
+    if(rarityFilter && positionFilter && allPlayers){
+      return(
+          <CardContainer players={allPlayers} proprarity={rarityFilter} propposition={positionFilter} />
+        )
+    }
+  }
   useEffect(() => {
     getAllCards()
   }, [])
 
   const filterChange = (e) => {
-    setFilter(e.target.id)
-    console.log(e.target.id)
+    if(e.target.checked){
+      //these lines of code will add to the arrays for filtering
+      if(e.target.id === "Diamond" ||e.target.id === "Gold" ||e.target.id === "Silver" ||e.target.id === "Bronze" ||e.target.id === "Common"){
+        rarity.push(e.target.id)
+      }else{
+        position.push(e.target.id)
+      } 
+    }else if(!e.target.checked){
+      if(e.target.id === "Diamond" ||e.target.id === "Gold" ||e.target.id === "Silver" ||e.target.id === "Bronze" ||e.target.id === "Common"){
+        let removed = rarity.filter((el) => {
+          return el !== e.target.id
+        })
+        rarity = removed
+      }else{
+        let removed = position.filter((el) => {
+          return el !== e.target.id
+        })
+        position = removed
+      }
+    }
   }
+
 
   return (
     
     <div className="App">
-
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Search Filter
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item id="diamond" onClick={filterChange}>Diamond Players</Dropdown.Item>
-          <Dropdown.Item id="gold" onClick={filterChange}>Gold Players</Dropdown.Item>
-          <Dropdown.Item id="silver" onClick={filterChange}>Silver Players</Dropdown.Item>
-          <Dropdown.Item id="bronze" onClick={filterChange}>Bronze Players</Dropdown.Item>
-          <Dropdown.Item id="common" onClick={filterChange}>Common Players</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-      {logging()}
+      <OptionsMenu filterChange={filterChange} formSubmit={formSubmit} players={allPlayers} />
+      {cardRender()}
     </div>
   );
 }
