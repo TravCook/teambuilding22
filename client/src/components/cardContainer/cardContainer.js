@@ -7,7 +7,7 @@ const  CardContainer = (props) => {
   console.log(props)
   return(
     <Container>
-      <Row lg={4}>
+      <Row lg={5}>
         {props.players.map((card) => {
           return(    
               <PlayerCard cardInfo={card} />
