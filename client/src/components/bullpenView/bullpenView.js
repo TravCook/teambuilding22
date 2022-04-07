@@ -1,9 +1,9 @@
 import React from 'react'
 import {Container, Row, Col} from 'react-bootstrap'
 import PlayerCard from '../playerCard/playerCard'
-import "./teamview.css"
+import "./bullpenView.css"
 
-const TeamView = () => {
+const BullpenView = () => {
     const testInfo = {
         name: "test",
         ovr: "99",
@@ -12,8 +12,10 @@ const TeamView = () => {
 
 
     return (
-        <Container fluid className="teamContainer">
+        <Container fluid className="benchContainer">
             <Row>
+                <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
+                <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
                 <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
                 <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
                 <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
@@ -23,15 +25,13 @@ const TeamView = () => {
                 <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
                 <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
                 <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
-            </Row>
-            <Row>
                 <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
-            </Row>
-            <Row>
+                <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
+                <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
                 <Col><PlayerCard className="card" cardInfo={testInfo}/></Col>
             </Row>
         </Container>
     )
 }
 
-export default TeamView
+export default BullpenView

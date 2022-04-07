@@ -5,8 +5,18 @@ import './navbar.css'
 const NavbarEl = () => {
     return(
         <Navbar className="navbarMain" >
-                <Col lg={6} className="appName">TEAMBUILDER 22</Col>
-                <Col lg={6} className="navbarButtons">
+                <Col lg={4} className="appName">TEAMBUILDER 22</Col>
+                <Col lg={4}>
+                    <Row>
+                        <Col>
+                            <Button>Team</Button>
+                            <Button>Bench</Button>
+                            <Button>Bullpen</Button>
+                        </Col>
+                    </Row>
+                    
+                </Col>
+                <Col lg={4} className="navbarButtons">
                     <Row>
                     <Col>
                     <Button className="btnStyle">Sign Up</Button>

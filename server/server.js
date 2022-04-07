@@ -1,4 +1,5 @@
 const express = require('express')
+const db = require('./config/connection')
 const path = require('path')
 const routes = require('./routes');
 require('dotenv').config()
@@ -11,4 +12,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(routes);
 // Start the server on the port
-app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
+db.once('open', () => {
+    app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
+})

@@ -4,6 +4,8 @@ import CardContainer from './components/cardContainer/cardContainer.js';
 import OptionsMenu from './components/optionsMenu/optionsMenu';
 import NavbarEl from './components/navbar/navbar.js'
 import TeamView from './components/teamView/teamView.js'
+import BenchView from './components/benchView/benchView.js';
+import BullpenView from './components/bullpenView/bullpenView';
 
 
 
@@ -89,6 +91,8 @@ function App() {
       {/* <OptionsMenu filterChange={filterChange} formSubmit={formSubmit} players={allPlayers} />
       {cardRender()} */}
       <TeamView />
+      <BenchView />
+      <BullpenView />
     </div>
   );
 }
