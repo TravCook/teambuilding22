@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import React, {useState, useEffect} from 'react'
 import './App.css';
-import {Dropdown} from 'react-bootstrap'
 import CardContainer from './components/cardContainer/cardContainer.js';
 import OptionsMenu from './components/optionsMenu/optionsMenu';
-
+import NavbarEl from './components/navbar/navbar.js'
+import TeamView from './components/teamView/teamView.js'
 
 
 
@@ -55,9 +54,9 @@ function App() {
         )
     }
   }
-  useEffect(() => {
-    getAllCards()
-  }, [])
+  // useEffect(() => {
+  //   getAllCards()
+  // }, [])
 
   const filterChange = (e) => {
     if(e.target.checked){
@@ -86,8 +85,10 @@ function App() {
   return (
     
     <div className="App">
-      <OptionsMenu filterChange={filterChange} formSubmit={formSubmit} players={allPlayers} />
-      {cardRender()}
+      <NavbarEl />
+      {/* <OptionsMenu filterChange={filterChange} formSubmit={formSubmit} players={allPlayers} />
+      {cardRender()} */}
+      <TeamView />
     </div>
   );
 }

@@ -1,0 +1,13 @@
+.navbarMain{
+    color: white;
+    background-color: black;
+}
+.appName{
+    text-align: left;
+}
+.navbarButtons{
+    text-align: right;
+}
+.btnStyle{
+    margin: 5px
+}
