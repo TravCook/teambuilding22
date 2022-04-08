@@ -2,19 +2,20 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import "./playerCard.css"
 
 const  PlayerCard = (props) => {
 
   const imgFunction = () => {
     if(props.cardInfo.img){
       return (
-        <Card.Img  variant="top" src={props.cardInfo.img} />
+        <Card.Img  className="playerPic" variant="top" src={props.cardInfo.img} />
       )
     }
   }
 
   return(
-    <Card>
+    <Card className="playerCard">
       {imgFunction()}
       <Card.Title>{props.cardInfo.name}</Card.Title>
       <Row>

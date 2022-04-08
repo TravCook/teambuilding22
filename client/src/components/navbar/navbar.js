@@ -10,7 +10,7 @@ const NavbarEl = () => {
                     <Row>
                         <Col>
                             <Button>Team</Button>
-                            <Button>Bench</Button>
+                            {/* <Button>Bench</Button> */}
                             <Button>Bullpen</Button>
                         </Col>
                     </Row>

@@ -4,18 +4,13 @@ import CardContainer from './components/cardContainer/cardContainer.js';
 import OptionsMenu from './components/optionsMenu/optionsMenu';
 import NavbarEl from './components/navbar/navbar.js'
 import TeamView from './components/teamView/teamView.js'
-import BenchView from './components/benchView/benchView.js';
-import BullpenView from './components/bullpenView/bullpenView';
+// import BenchView from './components/benchView/benchView.js';
+// import BullpenView from './components/bullpenView/bullpenView';
 
 
 
 
 function App() {
-  // const [diamondPlayers, setDiamonds] = useState()
-  // const [bronzePlayers, setBronzes] = useState()
-  // const [goldPlayers, setGolds] = useState()
-  // const [silverPlayers, setSilvers] = useState()
-  // const [commonPlayers, setCommons] = useState()
   const [filteredPlayers, setFilterPlayers] = useState()
   const [allPlayers, setPlayers] = useState()
   const [filterStatus, setFilter] = useState()
@@ -30,7 +25,7 @@ function App() {
     .then((res) => 
       res.json()
     ).then((data) => {
-      setPlayers(data.allPlayers)
+      setPlayers(data)
     })
   }
   const formSubmit = (e) => {
@@ -50,15 +45,15 @@ function App() {
 
   const cardRender = () => {
     console.log(rarityFilter ,  positionFilter , allPlayers)
-    if(rarityFilter && positionFilter && allPlayers){
+    if(allPlayers){
       return(
-          <CardContainer players={allPlayers} proprarity={rarityFilter} propposition={positionFilter} />
+          <TeamView players={allPlayers} />
         )
     }
   }
-  // useEffect(() => {
-  //   getAllCards()
-  // }, [])
+  useEffect(() => {
+    getAllCards()
+  }, [])
 
   const filterChange = (e) => {
     if(e.target.checked){
@@ -88,11 +83,11 @@ function App() {
     
     <div className="App">
       <NavbarEl />
-      {/* <OptionsMenu filterChange={filterChange} formSubmit={formSubmit} players={allPlayers} />
-      {cardRender()} */}
-      <TeamView />
-      <BenchView />
-      <BullpenView />
+      {/* <OptionsMenu filterChange={filterChange} formSubmit={formSubmit} players={allPlayers} /> */}
+      {cardRender()}
+      {/* <TeamView players={allPlayers}/> */}
+      {/* <BenchView players={allPlayers}/> */}
+      {/* <BullpenView /> */}
     </div>
   );
 }
