@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon server.js",
-    "seed": "node utils/seed.js"
+    "seed": "node ./utils/seed.js"
   },
   "author": "travCook",
   "license": "ISC",
