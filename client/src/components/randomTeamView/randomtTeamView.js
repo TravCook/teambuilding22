@@ -4,7 +4,6 @@ import PlayerCard from '../playerCard/playerCard'
 import "./teamview.css"
 
 const RandomTeamView = (props) => {
-    console.log(props)
     return (
         <Container fluid className="teamContainer">
             <Row>

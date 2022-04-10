@@ -5,8 +5,7 @@ import OptionsMenu from './components/optionsMenu/optionsMenu';
 import NavbarEl from './components/navbar/navbar.js'
 import RandomTeamView from './components/randomTeamView/randomtTeamView.js'
 import RandomBullpenView from './components/randomBullpenView/randomBullpenView';
-// import BenchView from './components/benchView/benchView.js';
-// import BullpenView from './components/bullpenView/bullpenView';
+import TeamPicker from './components/teamPicker/teamPicker';
 
 
 
@@ -25,7 +24,17 @@ function App() {
   const [centerFieldArr, setCenterFielders] = useState()
   const [rightFieldArr, setRightFielders] = useState()
   const [activePage, setPage] = useState()
-  const [activeRoster, setRoster] = useState()
+  const [activeRoster, setRoster] = useState({
+    leftField: undefined,
+    centerField: undefined,
+    rightField: undefined,
+    thirdBase: undefined,
+    shortStop: undefined,
+    secondBase: undefined,
+    firstBase: undefined,
+    firstStarter: undefined,
+    catcher: undefined
+  })
 
   let leftFieldarray=[]
   let rightFieldarray=[]
@@ -44,7 +53,9 @@ function App() {
         firstStarter: starterArr[Math.floor(Math.random() * starterArr.length)]
     })
   }
-
+  const searchFunction = () => {
+    console.log("CLICKED BITCH")
+  }
   const getAllCards = () => {
     console.log("this function runs")
     fetch("/api/cards")
@@ -109,13 +120,15 @@ function App() {
       setRandomFirstStarter()
       setPage("random")
     }else if (event.target.id === "builder"){
+      setRoster({
+        firstStarter: undefined
+    })
       setPage("builder")
     }
   }
   const pageRender = () => {
     if(allPlayers){
       if(activePage === "random"){
-        
         return(
           <>
             <RandomTeamView leftField={leftFieldArr}
@@ -130,6 +143,11 @@ function App() {
             <RandomBullpenView starters={starterArr} relievers={relieverArr} closers={closerArr} roster={activeRoster} />
           </>
         )
+      }else if (activePage === "builder"){
+        return(
+          <TeamPicker roster={activeRoster} playerSearch={""} searchFunction={searchFunction}/>
+        )
+        
       }
       
     }
