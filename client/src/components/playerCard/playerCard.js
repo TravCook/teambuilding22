@@ -5,7 +5,6 @@ import Col from 'react-bootstrap/Col'
 import "./playerCard.css"
 
 const  PlayerCard = (props) => {
-
   const imgFunction = () => {
     if(props.cardInfo.img){
       return (
