@@ -8,13 +8,13 @@ const  PlayerCard = (props) => {
   const imgFunction = () => {
     if(props.cardInfo.img){
       return (
-        <Card.Img  className="playerPic" variant="top" src={props.cardInfo.img} />
+        <Card.Img  className="playerPic" variant="top" id={props.id} src={props.cardInfo.img} onClick={props.rosterClear} />
       )
     }
   }
 
   return(
-    <Card className="playerCard" id={props.cardInfo.uuid} onClick={props.rosterSet}>
+    <Card className="playerCard" position={props.id} id={props.cardInfo.uuid} onClick={props.rosterSet} >
       {imgFunction()}
       <Card.Title>{props.cardInfo.name}</Card.Title>
       <Row>
