@@ -16,18 +16,25 @@ connection.once('open', async () => {
     urls.push(tempUrl)
   }
   console.log(urls[110])
-  await axios.all(urls.map((url) => 
+  await axios.all(urls.map((url) =>
     axios.get(url)
   )).then(async (data) => {
-    data.map((item) => {
+    try{
+      data.map((item) => {
       item.data.items.map((player) => {
           players.push(player)
           return players
       })
     })
-   
+    }
+    catch{
+      if(err) throw (err)
+    }
+
   })
   await Player.collection.insertMany(players)
+
+  
   console.info('Seeding complete! 🌱');
   process.exit(0);
 })

@@ -5,7 +5,6 @@ import Col from 'react-bootstrap/Col'
 import "./playerCard.css"
 
 const  PlayerCard = (props) => {
-
   const imgFunction = () => {
     if(props.cardInfo.img){
       return (
@@ -15,7 +14,7 @@ const  PlayerCard = (props) => {
   }
 
   return(
-    <Card className="playerCard">
+    <Card className="playerCard" id={props.cardInfo.uuid} onClick={props.rosterSet}>
       {imgFunction()}
       <Card.Title>{props.cardInfo.name}</Card.Title>
       <Row>
