@@ -8,7 +8,7 @@ const TeamPicker = (props) => {
     const starterSearch = () => {
         if(props.roster.firstStarter){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.firstStarter} />
+                <PlayerCard className="card" id="SP" cardInfo={props.roster.firstStarter} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -19,7 +19,7 @@ const TeamPicker = (props) => {
     const leftFieldSearch = () => {
         if(props.roster.leftField){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.leftField} />
+                <PlayerCard className="card" id="LF" cardInfo={props.roster.leftField} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -30,7 +30,7 @@ const TeamPicker = (props) => {
     const centerFieldSearch = () => {
         if(props.roster.centerField){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.centerField} />
+                <PlayerCard className="card" id="CF" cardInfo={props.roster.centerField} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -41,7 +41,7 @@ const TeamPicker = (props) => {
     const rightFieldSearch = () => {
         if(props.roster.rightField){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.rightField} />
+                <PlayerCard className="card" id="RF" cardInfo={props.roster.rightField} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -52,7 +52,7 @@ const TeamPicker = (props) => {
     const thirdBaseSearch = () => {
         if(props.roster.thirdBase){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.thirdBase} />
+                <PlayerCard className="card" id="3B" cardInfo={props.roster.thirdBase} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -63,7 +63,7 @@ const TeamPicker = (props) => {
     const shortStopSearch = () => {
         if(props.roster.shortStop){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.shortStop} />
+                <PlayerCard className="card" id="SS" cardInfo={props.roster.shortStop} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -74,7 +74,7 @@ const TeamPicker = (props) => {
     const secondBaseSearch = () => {
         if(props.roster.secondBase){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.secondBase} />
+                <PlayerCard className="card" id="2B" cardInfo={props.roster.secondBase} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -85,7 +85,7 @@ const TeamPicker = (props) => {
     const firstBaseSearch = () => {
         if(props.roster.firstBase){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.firstBase} />
+                <PlayerCard className="card" id="1B" cardInfo={props.roster.firstBase} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -96,7 +96,7 @@ const TeamPicker = (props) => {
     const catcherSearch = () => {
         if(props.roster.catcher){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.catcher} searchFunction={props.searchFunction} />
+                <PlayerCard className="card" id="C" cardInfo={props.roster.catcher} rosterClear={props.rosterClear} />
             ) 
         }else{
             return(

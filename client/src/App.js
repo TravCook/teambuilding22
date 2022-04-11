@@ -38,6 +38,160 @@ function App() {
     firstStarter: undefined,
     catcher: undefined
   })
+  const rosterClear = (e) => {
+    handleShow()
+    setSearch([])
+    let posSearch
+    let searchStorage =[]
+    posSearch = e.target.id
+    if(searchedPosition === "C"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }if(searchedPosition === "SP"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+  
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+  
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }if(searchedPosition === "CF"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }if(searchedPosition === "LF"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }if(searchedPosition === "RF"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }if(searchedPosition === "3B"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }if(searchedPosition === "SS"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }if(searchedPosition === "2B"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }if(searchedPosition === "1B"){
+      posSearch = e.target.id
+      allPlayers.map((player)=> {
+        if(player.is_hitter){
+          if(player.display_position === e.target.id || player.display_secondary_positions === e.target.id){
+            searchStorage.push(player)
+          }
+        }else{
+          if(player.display_position === e.target.id || player.display_secondary_positions.includes(e.target.id) ){
+            searchStorage.push(player)
+          }
+        }
+      })
+      searchStorage.sort((a,b) => b.ovr - a.ovr)
+      setSearch(searchStorage)
+      setSearchPos(posSearch)
+    }
+  }
   const rosterSet = (e) => {
     if(searchedPosition === "C"){
       fetch("/api/cards", {
@@ -310,7 +464,7 @@ function App() {
         )
       }else if (activePage === "builder"){
         return(
-          <TeamPicker pos={searchedPosition} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+          <TeamPicker pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
         )
         
       }
