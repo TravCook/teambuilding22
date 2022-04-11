@@ -10,6 +10,14 @@ import TeamPicker from './components/teamPicker/teamPicker';
 
 function App() {
   const [searchedPosition, setSearchPos] = useState()
+  const [searchFilter, setFilter] = useState({
+    Diamond: true,
+    Gold: false,
+    Silver: false,
+    Bronze: false,
+    Common: false
+  })
+  const [currentSearchPos, setCSP] = useState()
   const [show, setShow] = useState(false);
   const [searchedPlayers, setSearch] = useState()
   const handleClose = () => setShow(false);
@@ -203,7 +211,6 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        console.log(data)
         setRoster({
           ...activeRoster,
           catcher: data})
@@ -345,7 +352,109 @@ function App() {
   let relieverArray=[]
   let closerArray=[]
 
-  
+  const filterChange = async (e) => {
+    let filterKey = e.target.id
+    
+    if(filterKey === "Diamond"){
+      setFilter({
+        ...searchFilter,
+        Diamond: e.target.checked
+      }) 
+    }else if(filterKey === "Gold"){
+      setFilter({
+        ...searchFilter,
+        Gold: e.target.checked
+      }) 
+    }else if(filterKey === "Silver"){
+      setFilter({
+        ...searchFilter,
+        Silver: e.target.checked
+      }) 
+    }else if(filterKey === "Bronze"){
+      setFilter({
+        ...searchFilter,
+        Bronze: e.target.checked
+      })
+    }else if(filterKey === "Common"){
+      setFilter({
+        ...searchFilter,
+        Common: e.target.checked
+      })
+    }
+    
+     
+  }
+
+  const searchButton =(e) =>{
+    e.preventDefault()
+    let searchStorage =[]
+    allPlayers.map((player) => {
+      if(searchFilter.Diamond){
+        if(player.rarity === "Diamond"){
+          if(player.is_hitter){
+            if(player.display_position === searchedPosition || player.display_secondary_positions === (searchedPosition)){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === searchedPosition || player.display_secondary_positions === (searchedPosition) ){
+              searchStorage.push(player)
+            }
+          }
+        }
+      }if(searchFilter.Gold){
+        if(player.rarity === "Gold"){
+          if(player.is_hitter){
+            if(player.display_position === searchedPosition || player.display_secondary_positions === searchedPosition){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === searchedPosition || player.display_secondary_positions.includes(searchedPosition) ){
+              searchStorage.push(player)
+            }
+          }
+        }
+      }if(searchFilter.Silver){
+        if(player.rarity === "Silver"){
+          if(player.is_hitter){
+            if(player.display_position === searchedPosition || player.display_secondary_positions === searchedPosition){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === searchedPosition || player.display_secondary_positions.includes(searchedPosition) ){
+              searchStorage.push(player)
+            }
+          }
+        }
+      }if(searchFilter.Bronze){
+        if(player.rarity === "Bronze"){
+          if(player.is_hitter){
+            if(player.display_position === searchedPosition || player.display_secondary_positions === searchedPosition){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === searchedPosition || player.display_secondary_positions.includes(searchedPosition) ){
+              searchStorage.push(player)
+            }
+          }
+        }
+      }if(searchFilter.Common){
+        if(player.rarity === "Common"){
+          if(player.is_hitter){
+            if(player.display_position === searchedPosition || player.display_secondary_positions === searchedPosition){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === searchedPosition || player.display_secondary_positions.includes(searchedPosition) ){
+              searchStorage.push(player)
+            }
+          }
+        }
+      }
+    })
+    searchStorage.sort((a,b) => b.ovr - a.ovr)
+
+    setSearch(searchStorage)
+  }
 
   const setRandomFirstStarter = () => {
     setRoster({
@@ -359,13 +468,65 @@ function App() {
     let searchStorage =[]
     posSearch = e.target.parentNode.id
     allPlayers.map((player)=> {
-      if(player.is_hitter){
-        if(player.display_position === e.target.parentNode.id || player.display_secondary_positions === e.target.parentNode.id){
-          searchStorage.push(player)
+      if(searchFilter.Diamond){
+        if(player.rarity === "Diamond"){
+          if(player.is_hitter){
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions === (e.target.parentNode.id)){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions === (e.target.parentNode.id) ){
+              searchStorage.push(player)
+            }
+          }
         }
-      }else{
-        if(player.display_position === e.target.parentNode.id || player.display_secondary_positions.includes(e.target.parentNode.id) ){
-          searchStorage.push(player)
+      }else if(searchFilter.Gold){
+        if(player.rarity === "Gold"){
+          if(player.is_hitter){
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions === e.target.parentNode.id){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions.includes(e.target.parentNode.id) ){
+              searchStorage.push(player)
+            }
+          }
+        }
+      }else if(searchFilter.Silver){
+        if(player.rarity === "Silver"){
+          if(player.is_hitter){
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions === e.target.parentNode.id){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions.includes(e.target.parentNode.id) ){
+              searchStorage.push(player)
+            }
+          }
+        }
+      }else if(searchFilter.Bronze){
+        if(player.rarity === "Bronze"){
+          if(player.is_hitter){
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions === e.target.parentNode.id){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions.includes(e.target.parentNode.id) ){
+              searchStorage.push(player)
+            }
+          }
+        }
+      }else if(searchFilter.Common){
+        if(player.rarity === "Common"){
+          if(player.is_hitter){
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions === e.target.parentNode.id){
+              searchStorage.push(player)
+            }
+          }else{
+            if(player.display_position === e.target.parentNode.id || player.display_secondary_positions.includes(e.target.parentNode.id) ){
+              searchStorage.push(player)
+            }
+          }
         }
       }
     })
@@ -376,7 +537,6 @@ function App() {
     setSearchPos(posSearch)
   }
   const getAllCards = () => {
-    console.log("this function runs")
     fetch("/api/cards")
     .then((res) => 
       res.json()
@@ -464,7 +624,7 @@ function App() {
         )
       }else if (activePage === "builder"){
         return(
-          <TeamPicker pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+          <TeamPicker searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
         )
         
       }
