@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col, Modal, Button} from 'react-bootstrap'
 import PlayerCard from '../playerCard/playerCard.js'
 import "./teamPicker.css"
 import SearchDiv from '../searchDiv/searchDiv.js'
@@ -12,7 +12,7 @@ const TeamPicker = (props) => {
             )
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="SP" searchFunction={props.searchFunction}/>
             )
         }
     }
@@ -23,7 +23,7 @@ const TeamPicker = (props) => {
             )
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="LF" searchFunction={props.searchFunction}/>
             )
         }
     }
@@ -34,7 +34,7 @@ const TeamPicker = (props) => {
             )
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="CF" searchFunction={props.searchFunction}/>
             )
         }
     }
@@ -45,7 +45,7 @@ const TeamPicker = (props) => {
             )
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="RF" searchFunction={props.searchFunction}/>
             )
         }
     }
@@ -56,7 +56,7 @@ const TeamPicker = (props) => {
             )
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="3B" searchFunction={props.searchFunction}/>
             )
         }
     }
@@ -67,7 +67,7 @@ const TeamPicker = (props) => {
             )
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="SS"searchFunction={props.searchFunction}/>
             )
         }
     }
@@ -78,7 +78,7 @@ const TeamPicker = (props) => {
             )
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="2B" searchFunction={props.searchFunction}/>
             )
         }
     }
@@ -89,7 +89,7 @@ const TeamPicker = (props) => {
             )
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="1B" searchFunction={props.searchFunction}/>
             )
         }
     }
@@ -97,14 +97,37 @@ const TeamPicker = (props) => {
         if(props.roster.catcher){
             return(
                 <PlayerCard className="card" cardInfo={props.roster.catcher} />
-            )
+            ) 
         }else{
             return(
-                <SearchDiv className="card" searchFunction={props.searchFunction}/>
+                <SearchDiv className="card" id="C" handleShow={props.handleShow} searchFunction={props.searchFunction}/>
             )
         }
     }
+    const searchRender = () => {
+      if(props.playerSearch){
+        return(
+          <Container>
+            <Modal  show={props.show} onHide={props.handleClose}>
+              <Modal.Body>
+                <Row>
+                {props.playerSearch.map((player) => {
+                  return(
+                    <Col lg={3}>  
+                      <PlayerCard cardInfo={player} rosterSet={props.rosterSet} />
+                    </Col>
+                  )
+                })}
+                </Row>
+              </Modal.Body>
+            </Modal>
+          </Container>
+        )
+      }
+    }
+    
     return (
+      <>
         <Container fluid className="teamContainer">
             <Row>
                 <Col>{leftFieldSearch()}</Col>
@@ -124,6 +147,9 @@ const TeamPicker = (props) => {
                 <Col>{catcherSearch()}</Col>
             </Row>
         </Container>
+        {searchRender()}
+      
+        </>
     )
 }
 

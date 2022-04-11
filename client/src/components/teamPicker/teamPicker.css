@@ -6,3 +6,9 @@
     text-align: center;
     align-items: center;
 }
+.modalCard{
+  margin: 5px;
+}
+.modal-dialog{
+  max-width: 100vw;
+}

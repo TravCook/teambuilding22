@@ -4,7 +4,7 @@ import placeholderImg from '../../public/default-actionshot.jpg'
 
 const SearchDiv = (props) => {
     return(
-        <Card className="playerCard">
+        <Card className="playerCard" id={props.id}>
             <Card.Img  className="playerPic" variant="top" src={placeholderImg} onClick={props.searchFunction} />
             <Card.Title>CLICK ME TO SEARCH</Card.Title>
         </Card>

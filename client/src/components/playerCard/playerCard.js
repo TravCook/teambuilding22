@@ -14,7 +14,7 @@ const  PlayerCard = (props) => {
   }
 
   return(
-    <Card className="playerCard">
+    <Card className="playerCard" id={props.cardInfo.uuid} onClick={props.rosterSet}>
       {imgFunction()}
       <Card.Title>{props.cardInfo.name}</Card.Title>
       <Row>

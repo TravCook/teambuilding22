@@ -8,5 +8,10 @@ module.exports = {
             console.log(err);
             return res.status(500).json(err);
         })
+    },
+    getOnePlayer(req,res){
+      Player.findOne({uuid: req.body.uuid}).then((player) => {
+        return res.json(player)
+      })
     }
 }
