@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import './App.css';
-import CardContainer from './components/cardContainer/cardContainer.js';
-import OptionsMenu from './components/optionsMenu/optionsMenu';
 import NavbarEl from './components/navbar/navbar.js'
 import RandomTeamView from './components/randomTeamView/randomtTeamView.js'
 import RandomBullpenView from './components/randomBullpenView/randomBullpenView';
 import TeamPicker from './components/teamPicker/teamPicker';
-import SearchModal from './components/searchModal/searchModal';
 
 
 
@@ -48,7 +45,6 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-      
         body: JSON.stringify({uuid: e.target.parentNode.id})}
       ).then((res) => 
         res.json()
@@ -71,9 +67,10 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({...activeRoster,
-                    firstBase: data})
-                    setShow(false)
+        setRoster({
+          ...activeRoster,
+          firstBase: data})
+          setShow(false)
       })
     }if(searchedPosition === "2B"){
       fetch("/api/cards", {
@@ -85,9 +82,10 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({...activeRoster,
-                    secondBase: data})
-                    setShow(false)
+        setRoster({
+          ...activeRoster,
+          secondBase: data})
+          setShow(false)
       })
     }if(searchedPosition === "SS"){
       fetch("/api/cards", {
@@ -99,9 +97,10 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({...activeRoster,
-                    shortStop: data})
-                    setShow(false)
+        setRoster({
+          ...activeRoster,
+          shortStop: data})
+          setShow(false)
       })
     }if(searchedPosition === "3B"){
       fetch("/api/cards", {
@@ -113,9 +112,10 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({...activeRoster,
-                    thirdBase: data})
-                    setShow(false)
+        setRoster({
+          ...activeRoster,
+          thirdBase: data})
+          setShow(false)
       })
     }if(searchedPosition === "RF"){
       fetch("/api/cards", {
@@ -127,9 +127,10 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({...activeRoster,
-                    rightField: data})
-                    setShow(false)
+        setRoster({
+          ...activeRoster,
+          rightField: data})
+          setShow(false)
       })
     }if(searchedPosition === "CF"){
       fetch("/api/cards", {
@@ -141,9 +142,10 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({...activeRoster,
-                    centerField: data})
-                    setShow(false)
+        setRoster({
+          ...activeRoster,
+          centerField: data})
+          setShow(false)
       })
     }if(searchedPosition === "LF"){
       fetch("/api/cards", {
@@ -155,9 +157,10 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({...activeRoster,
-                    leftField: data})
-                    setShow(false)
+        setRoster({
+          ...activeRoster,
+          leftField: data})
+          setShow(false)
       })
     }if(searchedPosition === "SP"){
       fetch("/api/cards", {
@@ -169,9 +172,10 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({...activeRoster,
-                    firstStarter: data})
-                    setShow(false)
+        setRoster({
+          ...activeRoster,
+          firstStarter: data})
+          setShow(false)
       })
     }
   }
@@ -206,13 +210,15 @@ function App() {
           searchStorage.push(player)
         }
       }else{
-        if(player.display_position === e.target.parentNode.id || player.display_secondary_positions === e.target.parentNode.id){
+        if(player.display_position === e.target.parentNode.id || player.display_secondary_positions.includes(e.target.parentNode.id) ){
           searchStorage.push(player)
         }
       }
     })
+
+    searchStorage.sort((a,b) => b.ovr - a.ovr)
+
     setSearch(searchStorage)
-    
     setSearchPos(posSearch)
   }
   const getAllCards = () => {

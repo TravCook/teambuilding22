@@ -96,7 +96,7 @@ const TeamPicker = (props) => {
     const catcherSearch = () => {
         if(props.roster.catcher){
             return(
-                <PlayerCard className="card" cardInfo={props.roster.catcher} />
+                <PlayerCard className="card" cardInfo={props.roster.catcher} searchFunction={props.searchFunction} />
             ) 
         }else{
             return(
