@@ -3,6 +3,7 @@ import {Container, Row, Col, Modal, Button} from 'react-bootstrap'
 import PlayerCard from '../playerCard/playerCard.js'
 import "./teamPicker.css"
 import SearchDiv from '../searchDiv/searchDiv.js'
+import OptionsMenu from '../optionsMenu/optionsMenu.js'
 
 const TeamPicker = (props) => {
     const starterSearch = () => {
@@ -104,12 +105,9 @@ const TeamPicker = (props) => {
             )
         }
     }
-    const searchRender = () => {
+    const resultsRender = () => {
       if(props.playerSearch){
         return(
-          <Container>
-            <Modal  show={props.show} onHide={props.handleClose}>
-              <Modal.Body>
                 <Row>
                 {props.playerSearch.map((player) => {
                   return(
@@ -119,7 +117,18 @@ const TeamPicker = (props) => {
                   )
                 })}
                 </Row>
-              </Modal.Body>
+                )
+      }
+    }
+    const searchRender = () => {
+      if(props.playerSearch){
+        return(
+          <Container>
+            <Modal  show={props.show} onHide={props.handleClose}>
+              <Modal.Title>
+                <OptionsMenu searchButton={props.searchButton} filterChange={props.filterChange} />
+              </Modal.Title>
+              {resultsRender()}
             </Modal>
           </Container>
         )
@@ -147,8 +156,9 @@ const TeamPicker = (props) => {
                 <Col>{catcherSearch()}</Col>
             </Row>
         </Container>
+        <Modal.Body>
         {searchRender()}
-      
+        </Modal.Body>
         </>
     )
 }
