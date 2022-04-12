@@ -354,6 +354,7 @@ function App() {
     handleShow()
     setSearch([])
     let posSearch = e.target.parentNode.id
+    console.log(posSearch)
     PlayerSearchandSort(posSearch, searchFilter)
     setSearchPos(posSearch)
   }

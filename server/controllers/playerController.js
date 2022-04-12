@@ -10,7 +10,7 @@ module.exports = {
         })
     },
     getOnePlayer(req,res){
-      Player.find(req.body).then((player) => {
+      Player.findOne(req.body).then((player) => {
         return res.json(player)
       })
     }
