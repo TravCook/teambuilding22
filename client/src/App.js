@@ -29,7 +29,21 @@ function App() {
     secondBase: undefined,
     firstBase: undefined,
     firstStarter: undefined,
-    catcher: undefined
+    catcher: undefined,
+    starter2: undefined,
+    starter3: undefined,
+    starter4: undefined,
+    starter5: undefined,
+    bench1: undefined,
+    bench2: undefined,
+    bench3: undefined,
+    bench4: undefined,
+    bench5: undefined,
+    reliever1: undefined,
+    reliever2: undefined,
+    reliever3: undefined,
+    setup: undefined,
+    closer: undefined
   })
   const rosterClear = (e) => {
     defaultFilter() 
@@ -178,6 +192,217 @@ function App() {
           firstStarter: data})
           setShow(false)
       })
+    }if(searchedPosition === "CP"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          closer: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "B1"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          bench1: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "B2"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          bench2: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "B3"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          bench3: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "B4"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          bench4: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "B5"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          bench5: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "SP2"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          starter2: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "SP3"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          starter3: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "SP4"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          starter4: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "SP5"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          starter5: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "RP"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          reliever1: data})
+          setShow(false)
+      })
+    }
+    if(searchedPosition === "RP2"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          reliever2: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "RP3"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          reliever3: data})
+          setShow(false)
+      })
+    }if(searchedPosition === "SU"){
+      fetch("/api/cards", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid: e.target.parentNode.id})}
+      ).then((res) => 
+        res.json()
+      ).then((data) => {
+        setRoster({
+          ...activeRoster,
+          setup: data})
+          setShow(false)
+      })
     }
   }
 
@@ -224,6 +449,23 @@ function App() {
       let secPos = player.display_secondary_positions.split(", ")
       if(searchFilter.Diamond){
         if(player.rarity === "Diamond"){
+          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
+            if(player.is_hitter){
+              searchStorage.push(player)
+            }
+          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
+            if(!player.is_hitter){
+              if(player.display_position === "SP"){
+                searchStorage.push(player)
+              }
+            }
+          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
+            if(!player.is_hitter){
+              if(player.display_position === "RP" || player.display_position === "CP"){
+                searchStorage.push(player)
+              }
+            }
+          }
           if(player.is_hitter){
             if(player.display_position === position){
               searchStorage.push(player)
@@ -248,6 +490,23 @@ function App() {
         }
       }if(searchFilter.Gold){
         if(player.rarity === "Gold"){
+          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
+            if(player.is_hitter){
+              searchStorage.push(player)
+            }
+          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
+            if(!player.is_hitter){
+              if(player.display_position === "SP"){
+                searchStorage.push(player)
+              }
+            }
+          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
+            if(!player.is_hitter){
+              if(player.display_position === "RP" || player.display_position === "CP"){
+                searchStorage.push(player)
+              }
+            }
+          }
           if(player.is_hitter){
             if(player.display_position === position){
               searchStorage.push(player)
@@ -272,6 +531,23 @@ function App() {
         }
       }if(searchFilter.Silver){
         if(player.rarity === "Silver"){
+          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
+            if(player.is_hitter){
+              searchStorage.push(player)
+            }
+          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
+            if(!player.is_hitter){
+              if(player.display_position === "SP"){
+                searchStorage.push(player)
+              }
+            }
+          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
+            if(!player.is_hitter){
+              if(player.display_position === "RP" || player.display_position === "CP"){
+                searchStorage.push(player)
+              }
+            }
+          }
           if(player.is_hitter){
             if(player.display_position === position){
               searchStorage.push(player)
@@ -296,6 +572,23 @@ function App() {
         }
       }if(searchFilter.Bronze){
         if(player.rarity === "Bronze"){
+          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
+            if(player.is_hitter){
+              searchStorage.push(player)
+            }
+          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
+            if(!player.is_hitter){
+              if(player.display_position === "SP"){
+                searchStorage.push(player)
+              }
+            }
+          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
+            if(!player.is_hitter){
+              if(player.display_position === "RP" || player.display_position === "CP"){
+                searchStorage.push(player)
+              }
+            }
+          }
           if(player.is_hitter){
             if(player.display_position === position){
               searchStorage.push(player)
@@ -320,6 +613,23 @@ function App() {
         }
       }if(searchFilter.Common){
         if(player.rarity === "Common"){
+          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
+            if(player.is_hitter){
+              searchStorage.push(player)
+            }
+          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
+            if(!player.is_hitter){
+              if(player.display_position === "SP"){
+                searchStorage.push(player)
+              }
+            }
+          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
+            if(!player.is_hitter){
+              if(player.display_position === "RP" || player.display_position === "CP"){
+                searchStorage.push(player)
+              }
+            }
+          }
           if(player.is_hitter){
             if(player.display_position === position){
               searchStorage.push(player)
