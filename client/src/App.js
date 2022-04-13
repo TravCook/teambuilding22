@@ -2,11 +2,19 @@ import React, {useState, useEffect} from 'react'
 import './App.css';
 import NavbarEl from './components/navbar/navbar.js'
 import TeamPicker from './components/teamPicker/teamPicker';
+import SignupModal from './components/signupModal/signupModal';
+import Auth from './utils/auth.js';
 
 
 
 
 function App() {
+  const [signupFormState, setFormState] = useState({
+    formUsername: '',
+    formEmail: '',
+    formPassword: '',
+    formCheckPassword: ''
+  });
   const [searchedPosition, setSearchPos] = useState()
   const [searchFilter, setFilter] = useState({
     Diamond: true,
@@ -16,9 +24,12 @@ function App() {
     Common: false
   })
   const [show, setShow] = useState(false);
+  const [signupShow, setSignupShow] = useState(false);
   const [searchedPlayers, setSearch] = useState()
   const handleClose = () =>{ setShow(false)};
   const handleShow = () => setShow(true);
+  const handleSignupClose = () =>{ setSignupShow(false)};
+  const handleSignupShow = () => setSignupShow(true);
   const [allPlayers, setPlayers] = useState()
   const [activeRoster, setRoster] = useState({
     leftField: undefined,
@@ -45,6 +56,41 @@ function App() {
     setup: undefined,
     closer: undefined
   })
+
+
+  const handleSignupChange = (event) => {
+    const { id, value } = event.target;
+
+    setFormState({
+      ...signupFormState,
+      [id]: value,
+    });
+  };
+
+  const handleSignupSubmit = (event) => {
+    event.preventDefault()
+    if(signupFormState.formPassword === signupFormState.formCheckPassword){
+      fetch('/api/user/signup', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: signupFormState.formEmail,
+          username: signupFormState.formUsername,
+          password: signupFormState.formPassword
+        })
+      }).then((res) => {
+        return res.json()
+      }).then((data) => {
+        Auth.login(data.token)
+        if(data){
+          handleSignupClose()
+        }
+      })
+    }
+  }
+
   const rosterClear = (e) => {
     defaultFilter() 
     handleShow()
@@ -695,8 +741,9 @@ function App() {
   return (
     
     <div className="App">
-      <NavbarEl playerList={allPlayers} />
+      <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} />
       <TeamPicker searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+      <SignupModal handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
     </div>
   );
 }

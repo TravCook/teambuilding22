@@ -1,8 +1,24 @@
 import React from 'react'
 import { Navbar, Row, Col, Button, Container} from 'react-bootstrap'
 import './navbar.css'
+import Auth from '../../utils/auth'
 
 const NavbarEl = (props) => {
+  const logBtns = () => {
+    if(!Auth.loggedIn()){
+      return(
+        <>
+          <Button className="btnStyle" onClick={props.signupShow}>Sign Up</Button>
+          <Button className="btnStyle">Log In</Button>
+        </>
+      )
+    }else{
+      return(
+        <Button className="btnStyle" onClick={Auth.logout}>Log Out</Button>
+      )
+      
+    }
+  }
   const augmentPlayers = () => {
     if(props.playerList){
       let augPlayers= []
@@ -31,8 +47,7 @@ const NavbarEl = (props) => {
                 <Col lg={4} className="navbarButtons">
                     <Row>
                     <Col>
-                    <Button className="btnStyle">Sign Up</Button>
-                    <Button className="btnStyle">Log In</Button>
+                    {logBtns()}
                     </Col>
                     </Row>
                 </Col>
