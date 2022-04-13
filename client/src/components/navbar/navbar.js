@@ -9,7 +9,7 @@ const NavbarEl = (props) => {
       return(
         <>
           <Button className="btnStyle" onClick={props.signupShow}>Sign Up</Button>
-          <Button className="btnStyle">Log In</Button>
+          <Button className="btnStyle" onClick={props.loginShow}>Log In</Button>
         </>
       )
     }else{

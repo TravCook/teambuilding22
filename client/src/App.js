@@ -3,6 +3,7 @@ import './App.css';
 import NavbarEl from './components/navbar/navbar.js'
 import TeamPicker from './components/teamPicker/teamPicker';
 import SignupModal from './components/signupModal/signupModal';
+import LoginModal from './components/loginModal/loginModal';
 import Auth from './utils/auth.js';
 
 
@@ -15,6 +16,10 @@ function App() {
     formPassword: '',
     formCheckPassword: ''
   });
+  const [loginFormState, setLoginState] = useState({
+    formEmail: '',
+    formPassword: '',
+  });
   const [searchedPosition, setSearchPos] = useState()
   const [searchFilter, setFilter] = useState({
     Diamond: true,
@@ -25,11 +30,14 @@ function App() {
   })
   const [show, setShow] = useState(false);
   const [signupShow, setSignupShow] = useState(false);
+  const [loginShow, setLoginShow] = useState(false);
   const [searchedPlayers, setSearch] = useState()
   const handleClose = () =>{ setShow(false)};
   const handleShow = () => setShow(true);
   const handleSignupClose = () =>{ setSignupShow(false)};
   const handleSignupShow = () => setSignupShow(true);
+  const handleLoginClose = () =>{ setLoginShow(false)};
+  const handleLoginShow = () => setLoginShow(true);
   const [allPlayers, setPlayers] = useState()
   const [activeRoster, setRoster] = useState({
     leftField: undefined,
@@ -66,6 +74,14 @@ function App() {
       [id]: value,
     });
   };
+  const handleLoginChange = (event) => {
+    const { id, value } = event.target;
+
+    setFormState({
+      ...signupFormState,
+      [id]: value,
+    });
+  };
 
   const handleSignupSubmit = (event) => {
     event.preventDefault()
@@ -89,6 +105,27 @@ function App() {
         }
       })
     }
+  }
+
+  const handleLoginSubmit = (event) => {
+    event.preventDefault()
+      fetch('/api/user/login', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: signupFormState.formEmail,
+          password: signupFormState.formPassword
+        })
+      }).then((res) => {
+        return res.json()
+      }).then((data) => {
+        Auth.login(data.token)
+        if(data){
+          handleLoginClose()
+        }
+      })
   }
 
   const rosterClear = (e) => {
@@ -741,9 +778,10 @@ function App() {
   return (
     
     <div className="App">
-      <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} />
+      <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
       <TeamPicker searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
       <SignupModal handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
+      <LoginModal handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
   );
 }

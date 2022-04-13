@@ -28,7 +28,7 @@ module.exports = {
       if(!user || !user.comparePassword(req.body.password)){
         return res.status(401).json({message: 'Authentication Failed. Invalid Username or Password'})
       }
-      return res.json({token: jwt.sign({email:user.email, username:user.username, _id:user._id}, 'TeamBuilding')})
+      return res.json({token: jwt.sign({email:user.email, username:user.username, _id:user._id}, secret, {expiresIn: expiration})})
     })
   }
 }
