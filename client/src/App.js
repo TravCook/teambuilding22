@@ -112,6 +112,12 @@ function App() {
         }
         }else{
           setErr(data.msg)
+          setFormState({
+            formUsername: '',
+            formEmail: '',
+            formPassword: '',
+            formCheckPassword: ''
+          })
         }
       })
     }else{
@@ -133,7 +139,6 @@ function App() {
       }).then((res) => {
         return res.json()
       }).then((data) => {
-        console.log(data)
         if(data.token){
           Auth.login(data.token)
           if(data.token){
@@ -141,6 +146,10 @@ function App() {
         }
         }else{
           setErr(data.msg)
+          setLoginState({
+            formEmail: '',
+            formPassword: '',
+          })
         }
       })
   }
@@ -823,6 +832,7 @@ function App() {
   const getUsersTeams = () => {
     if(Auth.loggedIn()){
       const currentUser = Auth.getProfile()
+      console.log(currentUser)
     fetch('/api/team/userTeams', {
       method: "POST",
         headers: {
@@ -832,6 +842,7 @@ function App() {
     }).then((res) => {
       return res.json()
     }).then((data) => {
+      console.log(data)
       setUserTeams(data)
     })
     }
@@ -879,8 +890,8 @@ function App() {
     <div className="App">
       <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
       <TeamPicker teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
-      <SignupModal errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
-      <LoginModal errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
+      <SignupModal signupFormState={signupFormState} errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
+      <LoginModal loginFormState={loginFormState}errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
   );
 }

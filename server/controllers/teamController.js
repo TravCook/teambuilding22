@@ -25,7 +25,7 @@ module.exports ={
     })
   },
   getUsersTeams(req, res){
-    User.findOne({owner: req.body.owner}, (err, user) => {
+    User.findOne({email: req.body.owner}, (err, user) => {
       Team.find({owner: user._id}, (err, teams) => {
         res.json(teams)
       })
