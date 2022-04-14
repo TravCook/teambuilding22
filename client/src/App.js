@@ -10,6 +10,8 @@ import Auth from './utils/auth.js';
 
 
 function App() {
+  const [errorMsg, setErr] = useState()
+  const [userTeams, setUserTeams] = useState()
   const [signupFormState, setFormState] = useState({
     formUsername: '',
     formEmail: '',
@@ -20,6 +22,9 @@ function App() {
     formEmail: '',
     formPassword: '',
   });
+  const [TeamName, setTeamNameState] = useState({
+    teamName: ''
+  })
   const [searchedPosition, setSearchPos] = useState()
   const [searchFilter, setFilter] = useState({
     Diamond: true,
@@ -78,7 +83,7 @@ function App() {
     const { id, value } = event.target;
 
     setFormState({
-      ...signupFormState,
+      ...loginFormState,
       [id]: value,
     });
   };
@@ -99,11 +104,18 @@ function App() {
       }).then((res) => {
         return res.json()
       }).then((data) => {
-        Auth.login(data.token)
-        if(data){
+        console.log(data)
+        if(data.token){
+          Auth.login(data.token)
+          if(data.token){
           handleSignupClose()
         }
+        }else{
+          setErr(data.msg)
+        }
       })
+    }else{
+      setErr("Passwords do not match!")
     }
   }
 
@@ -121,9 +133,14 @@ function App() {
       }).then((res) => {
         return res.json()
       }).then((data) => {
-        Auth.login(data.token)
-        if(data){
+        console.log(data)
+        if(data.token){
+          Auth.login(data.token)
+          if(data.token){
           handleLoginClose()
+        }
+        }else{
+          setErr(data.msg)
         }
       })
   }
@@ -763,6 +780,7 @@ function App() {
 
   useEffect(() => {
     getAllCards()
+    getUsersTeams()
   }, [])
 
   const defaultFilter = () => {
@@ -774,14 +792,95 @@ function App() {
       Common: false
     })
   }
+  const saveTeam = (e) => {
+    e.preventDefault()
+    const currentUser = Auth.getProfile()
+    const teamtobeSaved = {
+      ...activeRoster,
+      name: TeamName.teamName,
+      owner: currentUser.email
+    }
+    fetch('/api/team/save', {
+      method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(teamtobeSaved)
+    }).then((res) => {
+      return res.json()
+    }).then((data) => {
+      console.log(data)
+    })
+  }
+  const handleTeamNameChange = (e) => {
+    const { id, value } = e.target
+
+    setTeamNameState({
+      [id]: value,
+    });
+  }
+
+  const getUsersTeams = () => {
+    if(Auth.loggedIn()){
+      const currentUser = Auth.getProfile()
+    fetch('/api/team/userTeams', {
+      method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({owner: currentUser.email})
+    }).then((res) => {
+      return res.json()
+    }).then((data) => {
+      setUserTeams(data)
+    })
+    }
+    
+  }
+
+  const teamSelect = (e) => {
+    userTeams.map((team) => {
+      if(team.name === e.target.id){
+        setRoster(
+          team
+        )
+      }
+    })
+  }
+  const teamClear = () => {
+    setRoster({
+      leftField: undefined,
+      centerField: undefined,
+      rightField: undefined,
+      thirdBase: undefined,
+      shortStop: undefined,
+      secondBase: undefined,
+      firstBase: undefined,
+      firstStarter: undefined,
+      catcher: undefined,
+      starter2: undefined,
+      starter3: undefined,
+      starter4: undefined,
+      starter5: undefined,
+      bench1: undefined,
+      bench2: undefined,
+      bench3: undefined,
+      bench4: undefined,
+      bench5: undefined,
+      reliever1: undefined,
+      reliever2: undefined,
+      reliever3: undefined,
+      setup: undefined,
+      closer: undefined
+    })
+  }
 
   return (
-    
     <div className="App">
       <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
-      <TeamPicker searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
-      <SignupModal handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
-      <LoginModal handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
+      <TeamPicker teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+      <SignupModal errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
+      <LoginModal errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
   );
 }

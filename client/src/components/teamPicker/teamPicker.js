@@ -1,22 +1,22 @@
 import React from 'react'
-import {Container, Row, Col, Modal, Button} from 'react-bootstrap'
+import {Container, Row, Col, Modal, Button, Form, Dropdown} from 'react-bootstrap'
 import PlayerCard from '../playerCard/playerCard.js'
 import "./teamPicker.css"
 import SearchDiv from '../searchDiv/searchDiv.js'
 import OptionsMenu from '../optionsMenu/optionsMenu.js'
 
 const TeamPicker = (props) => {
-    const starterSearch = () => {
-        if(props.roster.firstStarter){
-            return(
-                <PlayerCard className="card" id="SP" cardInfo={props.roster.firstStarter} rosterClear={props.rosterClear} />
-            )
-        }else{
-            return(
-                <SearchDiv className="card" id="SP" searchFunction={props.searchFunction}/>
-            )
-        }
-    }
+  const starterSearch = () => {
+      if(props.roster.firstStarter){
+          return(
+              <PlayerCard className="card" id="SP" cardInfo={props.roster.firstStarter} rosterClear={props.rosterClear} />
+          )
+      }else{
+          return(
+              <SearchDiv className="card" id="SP" searchFunction={props.searchFunction}/>
+          )
+      }
+  }
     const starter2Search = () => {
       if(props.roster.starter2){
           return(
@@ -288,10 +288,49 @@ const setupSearch = () => {
         )
       }
     }
+    const optionsRender = () => {
+      
+    }
+    const teamDropDown = () => {
+      if(props.userTeams){
+        return(
+          <Dropdown>
+            <Dropdown.Toggle variant="primary" id="dropdown-basic">
+              Your Saved Teams
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+            {props.userTeams.map((team) => {
+              return(
+                <Dropdown.Item id={team.name} onClick={props.teamSelect}>{team.name}</Dropdown.Item>
+              )
+            })}
+            </Dropdown.Menu>
+          </Dropdown>
+        )
+        
+      }
+    }
     
     return (
       <>
         <Container fluid className="teamContainer">
+          <Row>
+            <Col className="teamDropDown">
+              {teamDropDown()}
+            </Col>
+            <Col></Col>
+            <Col>
+              <Form onSubmit={props.saveTeam}>
+                <Form.Group controlId="teamName">
+                  <Form.Label>Team Name:</Form.Label>
+                  <Form.Control type="input" onChange={props.handleTeamNameChange}></Form.Control>
+                </Form.Group>
+              <Button className="btnStyle" type="submit">SAVE</Button>
+              
+              </Form>
+              <Button className="btnStyle" onClick={props.teamClear}>CLEAR</Button>
+            </Col>
+          </Row>
           <Row>
           <Col lg={8}>
             <Row className="teamRow">

@@ -2,10 +2,24 @@ import React from 'react'
 import {Modal,Container,Row,Col, Form, Button} from 'react-bootstrap'
 
 const SignupModal = (props) => {
+
+  const errorMessage = () => {
+    console.log(props.errMsg)
+    if(props.errMsg){
+      return(
+        <Modal.Title>{props.errMsg}</Modal.Title>
+      )
+    }
+  }
   return(
     <Modal show={props.signupShow} onHide={props.signupClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Sign up to create and account!</Modal.Title>
+          <Col>
+            <Modal.Title>Sign up to create and account!</Modal.Title>
+          </Col>
+          <Col>
+            {errorMessage()}
+          </Col>
       </Modal.Header>
       <Modal.Body>
         <Container>

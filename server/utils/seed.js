@@ -15,7 +15,6 @@ connection.once('open', async () => {
     let tempUrl = 'https://mlb22.theshow.com/apis/items?type=mlb_card&page=' + i
     urls.push(tempUrl)
   }
-  console.log(urls[110])
   await axios.all(urls.map((url) =>
     axios.get(url)
   )).then(async (data) => {

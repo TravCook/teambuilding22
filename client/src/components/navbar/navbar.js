@@ -25,26 +25,26 @@ const NavbarEl = (props) => {
       props.playerList.map((player) => {
         if(player.has_augment){
           augPlayers.push(player)
-          console.log(player.name)
-          return(
-            <Col>
-              {player.name}
-            </Col>
-          )
         }
       })
-      
+      return augPlayers.map((player) => {
+        return(
+          <Col lg={3}>
+            {player.name}
+          </Col>
+        )
+      })
     }
   }
     return(
         <Navbar className="navbarMain" >
-                <Col lg={4} className="appName">TEAMBUILDER 22</Col>
-                <Col lg={4}>
-                    <Row>
-                      {augmentPlayers()}
+                <Col lg={2} className="appName">TEAMBUILDER 22</Col>
+                <Col lg={5}>
+                    <Row>Augmented Players:
+                    {augmentPlayers()}
                     </Row>   
                 </Col>
-                <Col lg={4} className="navbarButtons">
+                <Col lg={5} className="navbarButtons">
                     <Row>
                     <Col>
                     {logBtns()}
