@@ -293,7 +293,6 @@ const setupSearch = () => {
     }
     const teamDropDown = () => {
       if(props.userTeams){
-        console.log(props.userTeams)
         return(
           <Dropdown>
             <Dropdown.Toggle variant="primary" id="dropdown-basic">

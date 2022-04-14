@@ -10,6 +10,7 @@ import Auth from './utils/auth.js';
 
 
 function App() {
+  const [errorMsg, setErr] = useState()
   const [userTeams, setUserTeams] = useState()
   const [signupFormState, setFormState] = useState({
     formUsername: '',
@@ -103,11 +104,18 @@ function App() {
       }).then((res) => {
         return res.json()
       }).then((data) => {
-        Auth.login(data.token)
-        if(data){
+        console.log(data)
+        if(data.token){
+          Auth.login(data.token)
+          if(data.token){
           handleSignupClose()
         }
+        }else{
+          setErr(data.msg)
+        }
       })
+    }else{
+      setErr("Passwords do not match!")
     }
   }
 
@@ -125,9 +133,14 @@ function App() {
       }).then((res) => {
         return res.json()
       }).then((data) => {
-        Auth.login(data.token)
-        if(data){
+        console.log(data)
+        if(data.token){
+          Auth.login(data.token)
+          if(data.token){
           handleLoginClose()
+        }
+        }else{
+          setErr(data.msg)
         }
       })
   }
@@ -808,7 +821,8 @@ function App() {
   }
 
   const getUsersTeams = () => {
-    const currentUser = Auth.getProfile()
+    if(Auth.loggedIn()){
+      const currentUser = Auth.getProfile()
     fetch('/api/team/userTeams', {
       method: "POST",
         headers: {
@@ -820,10 +834,11 @@ function App() {
     }).then((data) => {
       setUserTeams(data)
     })
+    }
+    
   }
 
   const teamSelect = (e) => {
-    console.log(e.target.id)
     userTeams.map((team) => {
       if(team.name === e.target.id){
         setRoster(
@@ -864,8 +879,8 @@ function App() {
     <div className="App">
       <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
       <TeamPicker teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
-      <SignupModal handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
-      <LoginModal handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
+      <SignupModal errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
+      <LoginModal errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
   );
 }

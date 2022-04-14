@@ -28,7 +28,6 @@ const NavbarEl = (props) => {
         }
       })
       return augPlayers.map((player) => {
-       console.log(player.name)
         return(
           <Col lg={3}>
             {player.name}

@@ -8,14 +8,20 @@ module.exports ={
         ...req.body,
         owner: user._id
       }
-      try{
-        Team.create(teamtobeSaved).then(() => {
-        res.json({msg: "Team Saved"})
+      Team.findOne({owner: teamtobeSaved.owner, name: teamtobeSaved.name}).then((team) => {
+        if(team){
+          Team.findOneAndUpdate({owner: teamtobeSaved.owner, name: teamtobeSaved.name}, teamtobeSaved)
+        }else{
+          try{
+            Team.create(teamtobeSaved).then(() => {
+            res.json({msg: "Team Saved"})
+          })
+          }
+          catch{
+            if(err) res.send(err)
+          }
+        }
       })
-      }
-      catch{
-        if(err) res.send(err)
-      }
     })
   },
   getUsersTeams(req, res){
