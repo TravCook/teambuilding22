@@ -37,8 +37,10 @@ module.exports = {
     User.findOne({email: req.body.email}, (err, user) => {
       if(!user || !user.comparePassword(req.body.password)){
         return res.status(401).json({msg: 'Authentication Failed. Invalid Username or Password'})
+      }else{
+        return res.json({token: jwt.sign({email:user.email, username:user.username, _id:user._id}, secret, {expiresIn: expiration})})
       }
-      return res.json({token: jwt.sign({email:user.email, username:user.username, _id:user._id}, secret, {expiresIn: expiration})})
+      
     })
   }
 }
