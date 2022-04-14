@@ -1,27 +1,23 @@
+const { default: mongoose } = require('mongoose')
 const {Team, User} = require('../models')
 
 module.exports ={
   saveTeam(req, res){
     User.findOne({email: req.body.owner}).then((user) => {
-      console.log(req.body)
       const teamtobeSaved = {
         ...req.body,
         owner: user._id
       }
-      Team.findOne({owner: teamtobeSaved.owner, name: teamtobeSaved.name}).then((team) => {
+      Team.findOne({owner: user._id, name:req.body.name}, (err, team) => {
         if(team){
-          Team.findOneAndUpdate({owner: teamtobeSaved.owner, name: teamtobeSaved.name}, teamtobeSaved)
-        }else{
-          try{
-            Team.create(teamtobeSaved).then(() => {
-            res.json({msg: "Team Saved"})
+          Team.findOneAndUpdate({owner: user._id, name: req.body.name},{...teamtobeSaved}, (err, team) => {
           })
-          }
-          catch{
-            if(err) res.send(err)
-          }
+        }else{
+          Team.create({...teamtobeSaved,  _id: mongoose.Types.ObjectId()}, (err, team) => {
+          })
         }
       })
+      
     })
   },
   getUsersTeams(req, res){

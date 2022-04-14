@@ -104,7 +104,6 @@ function App() {
       }).then((res) => {
         return res.json()
       }).then((data) => {
-        console.log(data)
         if(data.token){
           Auth.login(data.token)
           if(data.token){
@@ -158,7 +157,6 @@ function App() {
     defaultFilter() 
     handleShow()
     setSearch([])
-    console.log(e.target.id)
     PlayerSearchandSort(e.target.id)
     setSearchPos(e.target.id)
     defaultFilter()
@@ -181,7 +179,6 @@ function App() {
       })
     }
     if(searchedPosition === "1B"){
-      console.log("firstBase")
       fetch("/api/cards", {
         method: "POST",
         headers: {
@@ -742,23 +739,19 @@ function App() {
           if(player.is_hitter){
             if(player.display_position === position){
               searchStorage.push(player)
-              console.log(player.name + " added")
             }
             secPos.map((pos) => {
               if(pos === position){
                 searchStorage.push(player)
-                console.log(player.name + " added")
               }
             })
           }else if(!player.is_hitter){
             if(player.display_position === position){
               searchStorage.push(player)
-              console.log(player.name + " added")
             }
             secPos.map((pos) => {
               if(pos === position){
                 searchStorage.push(player)
-                console.log(player.name + " added")
               }
             })
           }
@@ -773,7 +766,6 @@ function App() {
     handleShow()
     setSearch([])
     let posSearch = e.target.parentNode.id
-    console.log(posSearch)
     PlayerSearchandSort(posSearch, searchFilter)
     setSearchPos(posSearch)
   }
@@ -818,7 +810,6 @@ function App() {
     }).then((res) => {
       return res.json()
     }).then((data) => {
-      console.log(data)
     })
   }
   const handleTeamNameChange = (e) => {
@@ -832,7 +823,6 @@ function App() {
   const getUsersTeams = () => {
     if(Auth.loggedIn()){
       const currentUser = Auth.getProfile()
-      console.log(currentUser)
     fetch('/api/team/userTeams', {
       method: "POST",
         headers: {
@@ -842,7 +832,6 @@ function App() {
     }).then((res) => {
       return res.json()
     }).then((data) => {
-      console.log(data)
       setUserTeams(data)
     })
     }
