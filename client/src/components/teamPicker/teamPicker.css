@@ -3,7 +3,7 @@
     margin: auto;
 }
 .teamContainer{
-  max-height: 85vh;
+  max-height: 95vh;
     text-align: center;
     align-items: center;
 }
@@ -19,4 +19,10 @@
 .teamDropDown{
   margin: 10px;
   text-align: left;
+}
+.fullScreen{
+  height: 90%
+}
+.teamViewButton{
+  margin: 10px
 }

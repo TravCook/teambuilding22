@@ -1,54 +1,71 @@
 import React from 'react'
-import {Form, Row, Col, Button} from 'react-bootstrap'
+import {Form, Row, Col, Dropdown, InputGroup, DropdownButton} from 'react-bootstrap'
+import DropdownMenu from 'react-bootstrap/esm/DropdownMenu'
+import "./optionsMenu.css"
 
 const OptionsMenu = (props) => {
   return (
-    <Form>
+    <Form className="optionsMenu">
       <Row>
         <Col>
-          <Form.Check inline
-          label="Diamond"
-          name="Diamond"
+        <Dropdown>
+            <Dropdown.Toggle 
+            variant="primary"
+            title="Team"
+            id="Team"
+            onChange={props.filterChange}
+            >Team</Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={props.filterChange} id="live"></Dropdown.Item>
+              <Dropdown.Item id="live"></Dropdown.Item> 
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col>
+        <Form.Control
+          label="Name"
+          name="Name"
+          type='text'
+          placeholder="Player Name"
+          id="name"
+          defaultChecked={true}
+          onChange={props.filterChange} />
+        
+        </Col>
+        <Col>
+          <Dropdown>
+            <Dropdown.Toggle 
+            variant="primary"
+            title="Series"
+            id="Series"
+            onChange={props.filterChange}
+            >Series</Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={props.filterChange} id="series">Live</Dropdown.Item>
+              <Dropdown.Item onClick={props.filterChange} id="series">Live Series</Dropdown.Item> 
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+        <Form.Check inline
+          label="Primary Position"
+          name="Primary Position"
           type='checkbox'
-          id="Diamond"
+          id="Primary"
           defaultChecked={true}
           onChange={props.filterChange} />
         </Col>
         <Col>
-          <Form.Check inline
-          label="Gold"
-          name="Gold"
+        <Form.Check inline
+          label="Secondary Position"
+          name="Secondary Position"
           type='checkbox'
-          id="Gold"
+          id="Secondary"
+          defaultChecked={true}
           onChange={props.filterChange} />
         </Col>
-        <Col>
-          <Form.Check inline
-          label="Silver"
-          name="Silver"
-          type='checkbox'
-          id="Silver"
-          onChange={props.filterChange} />
-        </Col>
-        <Col>
-          <Form.Check inline
-          label="Bronze"
-          name="Bronze"
-          type='checkbox'
-          id="Bronze"
-          onChange={props.filterChange} />
-        </Col>
-        <Col>
-          <Form.Check inline
-          label="Common"
-          name="Common"
-          type='checkbox'
-          id="Common"
-          onChange={props.filterChange} />
-        </Col>
-      </Row>
-      <Row>
-        <Button className="btnStyle" onClick={props.searchButton}>SEARCH</Button>
       </Row>
     </Form>
   )

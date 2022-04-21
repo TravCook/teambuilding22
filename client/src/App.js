@@ -10,6 +10,7 @@ import Auth from './utils/auth.js';
 
 
 function App() {
+  const [teamViewPage, setTVPage] = useState("field")
   const [errorMsg, setErr] = useState()
   const [userTeams, setUserTeams] = useState()
   const [signupFormState, setFormState] = useState({
@@ -27,11 +28,11 @@ function App() {
   })
   const [searchedPosition, setSearchPos] = useState()
   const [searchFilter, setFilter] = useState({
-    Diamond: true,
-    Gold: false,
-    Silver: false,
-    Bronze: false,
-    Common: false
+    Primary: true,
+    Secondary: true,
+    name: undefined,
+    team: undefined,
+    series: undefined
   })
   const [show, setShow] = useState(false);
   const [signupShow, setSignupShow] = useState(false);
@@ -70,6 +71,10 @@ function App() {
     closer: undefined
   })
 
+  const handleTVPageChange = (e) => {
+    console.log(e.target.id)
+    setTVPage(e.target.id)
+  }
 
   const handleSignupChange = (event) => {
     const { id, value } = event.target;
@@ -512,262 +517,114 @@ function App() {
     }
   }
 
-  const filterChange = async (e) => {
+  const filterChange = (e) => {
     let filterKey = e.target.id
-    
-    if(filterKey === "Diamond"){
+    if(filterKey === "series"){
       setFilter({
         ...searchFilter,
-        Diamond: e.target.checked
-      }) 
-    }else if(filterKey === "Gold"){
-      setFilter({
-        ...searchFilter,
-        Gold: e.target.checked
-      }) 
-    }else if(filterKey === "Silver"){
-      setFilter({
-        ...searchFilter,
-        Silver: e.target.checked
-      }) 
-    }else if(filterKey === "Bronze"){
-      setFilter({
-        ...searchFilter,
-        Bronze: e.target.checked
-      })
-    }else if(filterKey === "Common"){
-      setFilter({
-        ...searchFilter,
-        Common: e.target.checked
+        series: e.target.text
       })
     }
-    
-     
+    if(filterKey === "team"){
+      setFilter({
+        ...searchFilter,
+        series: e.target.text
+      })
+    }
+    if(filterKey === "name"){
+      setFilter({
+        ...searchFilter,
+        name: e.target.value
+      })
+      console.log(searchFilter)
+    }
+     if(filterKey === "Primary"){
+      setFilter({
+        ...searchFilter,
+        Primary: e.target.checked
+      })
+    }else if(filterKey === "Secondary"){
+      setFilter({
+        ...searchFilter,
+        Secondary: e.target.checked
+      })
+    }
   }
-
+  
   const searchButton =(e) =>{
     e.preventDefault()
     PlayerSearchandSort(searchedPosition)
   }
   const PlayerSearchandSort = (position) => {
     let searchStorage = []
-    allPlayers.map((player)=> {
-      let secPos = player.display_secondary_positions.split(", ")
-      if(searchFilter.Diamond){
-        if(player.rarity === "Diamond"){
-          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
-            if(player.is_hitter){
+    if(allPlayers){
+      allPlayers.map((player)=> {
+        let secPos = player.display_secondary_positions.split(", ")
+        if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
+          if(player.is_hitter){
+            searchStorage.push(player)
+          }
+        }
+        if( position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
+          if(!player.is_hitter){
+            if(player.display_position === "SP"){
               searchStorage.push(player)
-            }
-          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
-            if(!player.is_hitter){
-              if(player.display_position === "SP"){
-                searchStorage.push(player)
-              }
-            }
-          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
-            if(!player.is_hitter){
-              if(player.display_position === "RP" || player.display_position === "CP"){
-                searchStorage.push(player)
-              }
             }
           }
-          if(player.is_hitter){
-            if(player.display_position === position){
+        }
+        if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU" || position ==="CP"){
+          if(!player.is_hitter){
+            if(player.display_position === "RP" || player.display_position === "CP"){
               searchStorage.push(player)
             }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
+          }
+        }else{
+          if(searchFilter.Primary){
+            if(player.display_position === position){
+              if(searchFilter.name){
+                if(player.name.toLowerCase().includes(searchFilter.name)){
+                  searchStorage.push(player)
+                }
+              }else if(searchFilter.team){
 
+              }else if(searchFilter.series){
+
+              }else if(!searchFilter.name && !searchFilter.team && !searchFilter.series){
+                searchStorage.push(player)
               }
-            })
-          }else if(!player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
+               
             }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-
+          }
+          if(searchFilter.Secondary){
+            secPos.map((secondary) => {
+              if(secondary === position){
+                if(searchFilter.name){
+                  if(player.name.toLowerCase().includes(searchFilter.name)){
+                    searchStorage.push(player)
+                  }
+                }else if(searchFilter.team){
+  
+                }else if(searchFilter.series){
+  
+                }else if(!searchFilter.name && !searchFilter.team && !searchFilter.series){
+                  searchStorage.push(player)
+                }
               }
             })
           }
         }
-      }if(searchFilter.Gold){
-        if(player.rarity === "Gold"){
-          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
-            if(player.is_hitter){
-              searchStorage.push(player)
-            }
-          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
-            if(!player.is_hitter){
-              if(player.display_position === "SP"){
-                searchStorage.push(player)
-              }
-            }
-          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
-            if(!player.is_hitter){
-              if(player.display_position === "RP" || player.display_position === "CP"){
-                searchStorage.push(player)
-              }
-            }
-          }
-          if(player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
-            }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-
-              }
-            })
-          }else if(!player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
-            }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-
-              }
-            })
-          }
-        }
-      }if(searchFilter.Silver){
-        if(player.rarity === "Silver"){
-          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
-            if(player.is_hitter){
-              searchStorage.push(player)
-            }
-          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
-            if(!player.is_hitter){
-              if(player.display_position === "SP"){
-                searchStorage.push(player)
-              }
-            }
-          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
-            if(!player.is_hitter){
-              if(player.display_position === "RP" || player.display_position === "CP"){
-                searchStorage.push(player)
-              }
-            }
-          }
-          if(player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
-            }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-
-              }
-            })
-          }else if(!player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
-            }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-
-              }
-            })
-          }
-        }
-      }if(searchFilter.Bronze){
-        if(player.rarity === "Bronze"){
-          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
-            if(player.is_hitter){
-              searchStorage.push(player)
-            }
-          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
-            if(!player.is_hitter){
-              if(player.display_position === "SP"){
-                searchStorage.push(player)
-              }
-            }
-          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
-            if(!player.is_hitter){
-              if(player.display_position === "RP" || player.display_position === "CP"){
-                searchStorage.push(player)
-              }
-            }
-          }
-          if(player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
-            }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-
-              }
-            })
-          }else if(!player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
-            }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-
-              }
-            })
-          }
-        }
-      }if(searchFilter.Common){
-        if(player.rarity === "Common"){
-          if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
-            if(player.is_hitter){
-              searchStorage.push(player)
-            }
-          }if(position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
-            if(!player.is_hitter){
-              if(player.display_position === "SP"){
-                searchStorage.push(player)
-              }
-            }
-          }if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU"){
-            if(!player.is_hitter){
-              if(player.display_position === "RP" || player.display_position === "CP"){
-                searchStorage.push(player)
-              }
-            }
-          }
-          if(player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
-            }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-              }
-            })
-          }else if(!player.is_hitter){
-            if(player.display_position === position){
-              searchStorage.push(player)
-            }
-            secPos.map((pos) => {
-              if(pos === position){
-                searchStorage.push(player)
-              }
-            })
-          }
-        }
-      }
-    })
+      })
     searchStorage.sort((a,b) => b.ovr - a.ovr)
     setSearch(searchStorage)
-    
+    }
   }
   const searchFunction = (e) => {
-    handleShow()
+    defaultFilter() 
     setSearch([])
+    handleShow()
     let posSearch = e.target.parentNode.id
-    PlayerSearchandSort(posSearch, searchFilter)
     setSearchPos(posSearch)
+    PlayerSearchandSort(posSearch, searchFilter)
   }
 
   const getAllCards = () => {
@@ -781,16 +638,18 @@ function App() {
 
   useEffect(() => {
     getAllCards()
-    getUsersTeams()
   }, [])
+  useEffect(() => {
+    PlayerSearchandSort(searchedPosition, searchFilter)
+  }, [searchFilter] )
 
   const defaultFilter = () => {
     setFilter({
-      Diamond: true,
-      Gold: false,
-      Silver: false,
-      Bronze: false,
-      Common: false
+      Primary: true,
+      Secondary: true,
+      name: undefined,
+      team: undefined,
+      series: undefined
     })
   }
   const saveTeam = (e) => {
@@ -810,6 +669,7 @@ function App() {
     }).then((res) => {
       return res.json()
     }).then((data) => {
+      console.log(data)
     })
   }
   const handleTeamNameChange = (e) => {
@@ -874,11 +734,11 @@ function App() {
       closer: undefined
     })
   }
-
+  getUsersTeams()
   return (
     <div className="App">
       <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
-      <TeamPicker teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+      <TeamPicker teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
       <SignupModal signupFormState={signupFormState} errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
       <LoginModal loginFormState={loginFormState}errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
