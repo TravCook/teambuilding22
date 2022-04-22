@@ -4,7 +4,6 @@ import {Modal,Container,Row,Col, Form, Button} from 'react-bootstrap'
 const SignupModal = (props) => {
 
   const errorMessage = () => {
-    console.log(props.errMsg)
     if(props.errMsg){
       return(
         <Modal.Title>{props.errMsg}</Modal.Title>

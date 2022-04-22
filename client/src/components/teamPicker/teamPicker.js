@@ -262,10 +262,10 @@ const setupSearch = () => {
     const resultsRender = () => {
       if(props.playerSearch){
         return(
-                <Row>
+                <Row className="modalRow">
                 {props.playerSearch.map((player) => {
                   return(
-                    <Col lg={3}>  
+                    <Col className="cardCol" lg={2}>  
                       <PlayerCard cardInfo={player} rosterSet={props.rosterSet} />
                     </Col>
                   )
@@ -278,18 +278,15 @@ const setupSearch = () => {
       if(props.playerSearch){
         return(
           <Container>
-            <Modal  show={props.show} onHide={props.handleClose}>
+            <Modal className="searchModal"  show={props.show} onHide={props.handleClose}>
               <Modal.Title>
-                <OptionsMenu searchButton={props.searchButton} filterChange={props.filterChange} />
+                <OptionsMenu searchFilter={props.searchFilter} setDDShow={props.setDDShow} DDshow={props.DDshow} searchButton={props.searchButton} filterChange={props.filterChange} />
               </Modal.Title>
               {resultsRender()}
             </Modal>
           </Container>
         )
       }
-    }
-    const optionsRender = () => {
-      
     }
     const teamDropDown = () => {
       if(props.userTeams){
@@ -310,15 +307,73 @@ const setupSearch = () => {
         
       }
     }
+    const teamViewPageRender = () => {
+      if(props.teamViewPage === "field"){
+        return(
+          <Col >
+            <Row className="teamRow">
+              <Col>{leftFieldSearch()}</Col>
+              <Col>{centerFieldSearch()}</Col>
+              <Col>{rightFieldSearch()}</Col>
+            </Row>
+            <Row className="teamRow">
+              <Col>{thirdBaseSearch()}</Col>
+              <Col>{shortStopSearch()}</Col>
+              <Col>{secondBaseSearch()}</Col>
+              <Col>{firstBaseSearch()}</Col>
+            </Row>
+            <Row className="teamRow">
+              <Col>{starterSearch()}</Col>
+            </Row>
+            <Row className="teamRow">
+              <Col>{catcherSearch()}</Col>
+            </Row>
+          </Col>
+        )
+      }else if(props.teamViewPage === "bench"){
+        return(
+          <Row>
+              <Col>{bench1Search()}</Col>
+              <Col>{bench2Search()}</Col>
+              <Col>{bench3Search()}</Col>
+              <Col>{bench4Search()}</Col>
+              <Col>{bench5Search()}</Col>
+            </Row>
+        )
+      }else if(props.teamViewPage === "bullpen"){
+        return(
+          <Row>
+            <Row>
+              <Col>{starterSearch()}</Col>
+              <Col>{starter2Search()}</Col>
+              <Col>{starter3Search()}</Col>
+              <Col>{starter4Search()}</Col>
+              <Col>{starter5Search()}</Col>
+            </Row>
+            <Row>
+              <Col>{relieverSearch()}</Col>
+              <Col>{reliever2Search()}</Col>
+              <Col>{reliever3Search()}</Col>
+              <Col>{setupSearch()}</Col>
+              <Col>{closerSearch()}</Col>
+            </Row>
+          </Row>
+        )
+      }
+    }
     
     return (
       <>
-        <Container fluid className="teamContainer">
+        <Container fluid className="teamContainer fullScreen">
           <Row>
             <Col className="teamDropDown">
               {teamDropDown()}
             </Col>
-            <Col></Col>
+            <Col>
+              <Button className="teamViewButton" id="field" onClick={props.handleTVPageChange}>Fielded Players</Button>
+              <Button className="teamViewButton" id="bench" onClick={props.handleTVPageChange}>Bench</Button>
+              <Button className="teamViewButton" id="bullpen" onClick={props.handleTVPageChange}>Bullpen</Button>
+            </Col>
             <Col>
               <Form onSubmit={props.saveTeam}>
                 <Form.Group controlId="teamName">
@@ -332,65 +387,8 @@ const setupSearch = () => {
             </Col>
           </Row>
           <Row>
-          <Col lg={8}>
-            <Row className="teamRow">
-                <Col>{leftFieldSearch()}</Col>
-                <Col>{centerFieldSearch()}</Col>
-                <Col>{rightFieldSearch()}</Col>
-            </Row>
-            <Row className="teamRow">
-                <Col>{thirdBaseSearch()}</Col>
-                <Col>{shortStopSearch()}</Col>
-                <Col>{secondBaseSearch()}</Col>
-                <Col>{firstBaseSearch()}</Col>
-            </Row>
-            <Row className="teamRow">
-                <Col>{starterSearch()}</Col>
-            </Row>
-            <Row className="teamRow">
-                <Col>{catcherSearch()}</Col>
-            </Row>
-            <Row>
-              <Col lg={2}>{bench1Search()}</Col>
-              <Col lg={2}>{bench2Search()}</Col>
-              <Col lg={2}>{bench3Search()}</Col>
-              <Col lg={2}>{bench4Search()}</Col>
-              <Col lg={2}>{bench5Search()}</Col>
-            </Row>
-          </Col>
-          <Col lg={2}>
-            <Row>
-              <Col>{starterSearch()}</Col>
-            </Row>
-            <Row>
-              <Col>{starter2Search()}</Col>
-            </Row>
-            <Row>
-              <Col>{starter3Search()}</Col>
-            </Row>
-            <Row>
-              <Col>{starter4Search()}</Col>
-            </Row>
-            <Row>
-              <Col>{starter5Search()}</Col>
-            </Row>
-          </Col>
           <Col>
-            <Row>
-              <Col>{relieverSearch()}</Col>
-            </Row>
-            <Row>
-              <Col>{reliever2Search()}</Col>
-            </Row>
-            <Row>
-              <Col>{reliever3Search()}</Col>
-            </Row>
-            <Row>
-              <Col>{setupSearch()}</Col>
-            </Row>
-            <Row>
-              <Col>{closerSearch()}</Col>
-            </Row>
+            {teamViewPageRender()}
           </Col>
           </Row>  
         </Container>
