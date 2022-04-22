@@ -1,3 +1,132 @@
 .optionsMenu{
   text-align: center;
 }
+.angelsBackground{
+  background-color: #BA0021;
+  color: #FFFFFF;
+}
+.dbacksBackground{
+  background-color: #A71930;
+  color: #E3D4AD;
+}
+.bravesBackground{
+  background-color: #CE1141;
+  color: #13274F;
+}
+.oriolesBackground{
+  background-color: #DF4601;
+  color: #000000;
+}
+.redsoxBackground{
+  background-color: #BD3039;
+  color: #0C2340;
+}
+.cubsBackground{
+  background-color: #0E3386;
+  color: #CC3433;
+}
+.whitesoxBackground{
+  background-color: #27251F;
+  color: #C4CED4;
+}
+.redsBackground{
+  background-color: #C6011F;
+  color: #FFFFFF;
+} 
+.guardiansBackground{
+  background-color: #0C2340;
+  color: #E31937;
+}
+.rockiesBackground{
+  background-color: #33006F;
+  color: #000000;
+}
+.tigersBackground{
+  background-color: #0C2340;
+  color: #FA4616;
+}
+.astrosBackground{
+  background-color: #002D62;
+  color: #EB6E1F;
+}
+.royalsBackground{
+  background-color: #004687;
+  color: #BD9B60;
+}
+.dodgersBackground{
+  background-color: #005A9C;
+  color: #A5ACAF;
+}
+.marlinsBackground{
+  background-color: #000000;
+  color: #00A3E0;
+}
+.brewersBackground{
+  background-color: #12284B;
+  color: #FFC52F;
+}
+.twinsBackground{
+  background-color: #002B5C;
+  color: #D31145;
+}
+.metsBackground{
+  background-color: #002D72;
+  color: #FF5910;
+}
+.yankeesBackground{
+  background-color: #003087;
+  color: #C4CED3;
+}
+.athleticsBackground{
+  background-color: #003831;
+  color: #EFB21E;
+}
+.philliesBackground{
+  background-color: #E81828;
+  color: #002D72;
+}
+.piratesBackground{
+  background-color: #27251F;
+  color: #FDB827;
+}
+.padresBackground{
+  background-color: #2F241D;
+  color: #FFC425;
+}
+.giantsBackground{
+  background-color: #27251F;
+  color: #FD5A1E;
+}
+.marinersBackground{
+  background-color: #0C2C56;
+  color: #005C5C;
+}
+.cardinalsBackground{
+  background-color: #C41E3A;
+  color: #0C2340;
+}
+.raysBackground{
+  background-color: #092C5C;
+  color: #8FBCE6;
+}
+.rangersBackground{
+  background-color: #003278;
+  color: #C0111F;
+}
+.bluejaysBackground{
+  background-color: #134A8E;
+  color: #FFFFFF;
+}
+.nationalsBackground{
+  background-color: #AB0003;
+  color: #14225A;
+}
+.teamDDdiv{
+  text-align: center;
+  padding: 4px;
+  border-radius: 15%;
+  margin: 2px
+}
+.teamDDdiv:hover{
+  cursor: pointer;
+}

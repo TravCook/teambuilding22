@@ -262,10 +262,10 @@ const setupSearch = () => {
     const resultsRender = () => {
       if(props.playerSearch){
         return(
-                <Row>
+                <Row className="modalRow">
                 {props.playerSearch.map((player) => {
                   return(
-                    <Col lg={2}>  
+                    <Col className="cardCol" lg={2}>  
                       <PlayerCard cardInfo={player} rosterSet={props.rosterSet} />
                     </Col>
                   )
@@ -278,9 +278,9 @@ const setupSearch = () => {
       if(props.playerSearch){
         return(
           <Container>
-            <Modal  show={props.show} onHide={props.handleClose}>
+            <Modal className="searchModal"  show={props.show} onHide={props.handleClose}>
               <Modal.Title>
-                <OptionsMenu searchButton={props.searchButton} filterChange={props.filterChange} />
+                <OptionsMenu searchFilter={props.searchFilter} setDDShow={props.setDDShow} DDshow={props.DDshow} searchButton={props.searchButton} filterChange={props.filterChange} />
               </Modal.Title>
               {resultsRender()}
             </Modal>

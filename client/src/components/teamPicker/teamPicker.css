@@ -1,6 +1,10 @@
 .card{
-    width: 11rem;
+    width: 13rem;
     margin: auto;
+    text-align: center;
+}
+.cardCol{
+  padding: 5px
 }
 .teamContainer{
   max-height: 95vh;
@@ -25,4 +29,11 @@
 }
 .teamViewButton{
   margin: 10px
+}
+.searchModal{
+  overflow: scroll;
+}
+.modalRow{
+  background-color: rgba(0,0,0,.9);
+  padding: 5px
 }

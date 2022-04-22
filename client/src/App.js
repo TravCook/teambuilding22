@@ -10,6 +10,7 @@ import Auth from './utils/auth.js';
 
 
 function App() {
+  const [DDshow, setDDShow ] = useState(false);
   const [teamViewPage, setTVPage] = useState("field")
   const [errorMsg, setErr] = useState()
   const [userTeams, setUserTeams] = useState()
@@ -70,7 +71,7 @@ function App() {
     setup: undefined,
     closer: undefined
   })
-
+  const [teams, setTeams] = useState([])
   const handleTVPageChange = (e) => {
     console.log(e.target.id)
     setTVPage(e.target.id)
@@ -519,26 +520,21 @@ function App() {
 
   const filterChange = (e) => {
     let filterKey = e.target.id
+    console.log(e.target.value)
     if(filterKey === "series"){
       setFilter({
         ...searchFilter,
         series: e.target.text
       })
     }
-    if(filterKey === "team"){
-      setFilter({
-        ...searchFilter,
-        series: e.target.text
-      })
-    }
-    if(filterKey === "name"){
+    else if(filterKey === "name"){
       setFilter({
         ...searchFilter,
         name: e.target.value
       })
       console.log(searchFilter)
     }
-     if(filterKey === "Primary"){
+     else if(filterKey === "Primary"){
       setFilter({
         ...searchFilter,
         Primary: e.target.checked
@@ -548,6 +544,29 @@ function App() {
         ...searchFilter,
         Secondary: e.target.checked
       })
+    }else{
+      if(!teams.includes(filterKey)){
+        let searchedTeams = [...teams, filterKey]
+        setTeams([...teams, filterKey])
+        setFilter({
+          ...searchFilter,
+          searchTeams: searchedTeams 
+        })
+      }
+      if(teams.includes(filterKey)){
+        let filteredTeams = teams.filter((team) => team != filterKey)
+        setTeams(filteredTeams)
+        setFilter({
+          ...searchFilter,
+          searchTeams: filteredTeams 
+        })
+        if(filteredTeams.length === 0){
+          setFilter({
+            ...searchFilter,
+            searchTeams: undefined 
+          })
+        }
+      }
     }
   }
   
@@ -562,34 +581,104 @@ function App() {
         let secPos = player.display_secondary_positions.split(", ")
         if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
           if(player.is_hitter){
-            searchStorage.push(player)
+            if(searchFilter.name && searchFilter.searchTeams){
+              if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                searchStorage.push(player)
+              }
+            }
+            else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+              if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                searchStorage.push(player)
+              }
+            }
+            else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+              if(searchFilter.searchTeams.includes(player.team)){
+                searchStorage.push(player)
+              }
+            }
+            else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
+
+            }
+            else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
+              searchStorage.push(player)
+            }  
           }
         }
         if( position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
           if(!player.is_hitter){
             if(player.display_position === "SP"){
-              searchStorage.push(player)
+              if(searchFilter.name && searchFilter.searchTeams){
+                if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                  searchStorage.push(player)
+                }
+              }
+              else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+                if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                  searchStorage.push(player)
+                }
+              }
+              else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+                if(searchFilter.searchTeams.includes(player.team)){
+                  searchStorage.push(player)
+                }
+              }
+              else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
+
+              }
+              else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
+                searchStorage.push(player)
+              }
             }
           }
         }
         if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU" || position ==="CP"){
           if(!player.is_hitter){
             if(player.display_position === "RP" || player.display_position === "CP"){
-              searchStorage.push(player)
+              if(searchFilter.name && searchFilter.searchTeams){
+                if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                  searchStorage.push(player)
+                }
+              }
+              else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+                if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                  searchStorage.push(player)
+                }
+              }
+              else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+                if(searchFilter.searchTeams.includes(player.team)){
+                  searchStorage.push(player)
+                }
+              }
+              else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
+
+              }
+              else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
+                searchStorage.push(player)
+              }
             }
           }
         }else{
           if(searchFilter.Primary){
             if(player.display_position === position){
-              if(searchFilter.name){
-                if(player.name.toLowerCase().includes(searchFilter.name)){
+              if(searchFilter.name && searchFilter.searchTeams){
+                if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                   searchStorage.push(player)
                 }
-              }else if(searchFilter.team){
+              }
+              else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+                if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                  searchStorage.push(player)
+                }
+              }
+              else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+                if(searchFilter.searchTeams.includes(player.team)){
+                  searchStorage.push(player)
+                }
+              }
+              else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
 
-              }else if(searchFilter.series){
-
-              }else if(!searchFilter.name && !searchFilter.team && !searchFilter.series){
+              }
+              else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                 searchStorage.push(player)
               }
                
@@ -598,15 +687,25 @@ function App() {
           if(searchFilter.Secondary){
             secPos.map((secondary) => {
               if(secondary === position){
-                if(searchFilter.name){
-                  if(player.name.toLowerCase().includes(searchFilter.name)){
+                if(searchFilter.name && searchFilter.searchTeams){
+                  if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                     searchStorage.push(player)
                   }
-                }else if(searchFilter.team){
+                }
+                else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                    searchStorage.push(player)
+                  }
+                }
+                else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+                  if(searchFilter.searchTeams.includes(player.team)){
+                    searchStorage.push(player)
+                  }
+                }
+                else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
   
-                }else if(searchFilter.series){
-  
-                }else if(!searchFilter.name && !searchFilter.team && !searchFilter.series){
+                }
+                else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                   searchStorage.push(player)
                 }
               }
@@ -645,11 +744,10 @@ function App() {
 
   const defaultFilter = () => {
     setFilter({
+      ...searchFilter,
       Primary: true,
       Secondary: true,
       name: undefined,
-      team: undefined,
-      series: undefined
     })
   }
   const saveTeam = (e) => {
@@ -738,7 +836,7 @@ function App() {
   return (
     <div className="App">
       <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
-      <TeamPicker teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+      <TeamPicker searchFilter={searchFilter} setDDShow={setDDShow}DDshow={DDshow} teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
       <SignupModal signupFormState={signupFormState} errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
       <LoginModal loginFormState={loginFormState}errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
