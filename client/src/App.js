@@ -178,11 +178,24 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          catcher: data})
-        setShow(false)
-      })
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            catcher: data
+          })
+          setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
+        })
     }
     if(searchedPosition === "1B"){
       fetch("/api/cards", {
@@ -194,10 +207,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          firstBase: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            firstBase: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "2B"){
       fetch("/api/cards", {
@@ -209,10 +235,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          secondBase: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            secondBase: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "SS"){
       fetch("/api/cards", {
@@ -224,10 +263,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          shortStop: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            shortStop: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "3B"){
       fetch("/api/cards", {
@@ -239,10 +291,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          thirdBase: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            thirdBase: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "RF"){
       fetch("/api/cards", {
@@ -254,10 +319,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          rightField: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            rightField: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "CF"){
       fetch("/api/cards", {
@@ -269,10 +347,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          centerField: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            centerField: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "LF"){
       fetch("/api/cards", {
@@ -284,10 +375,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          leftField: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            leftField: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "SP"){
       fetch("/api/cards", {
@@ -299,10 +403,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          firstStarter: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            firstStarter: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "CP"){
       fetch("/api/cards", {
@@ -314,10 +431,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          closer: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            closer: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "B1"){
       fetch("/api/cards", {
@@ -329,10 +459,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench1: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench1: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "B2"){
       fetch("/api/cards", {
@@ -344,10 +487,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench2: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench2: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "B3"){
       fetch("/api/cards", {
@@ -359,10 +515,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench3: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench3: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "B4"){
       fetch("/api/cards", {
@@ -374,10 +543,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench4: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench4: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "B5"){
       fetch("/api/cards", {
@@ -389,10 +571,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench5: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench5: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "SP2"){
       fetch("/api/cards", {
@@ -404,10 +599,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          starter2: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            starter2: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "SP3"){
       fetch("/api/cards", {
@@ -419,10 +627,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          starter3: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            starter3: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "SP4"){
       fetch("/api/cards", {
@@ -434,10 +655,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          starter4: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            starter4: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "SP5"){
       fetch("/api/cards", {
@@ -449,10 +683,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          starter5: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            starter5: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "RP"){
       fetch("/api/cards", {
@@ -464,10 +711,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          reliever1: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            reliever1: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }
     if(searchedPosition === "RP2"){
@@ -480,10 +740,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          reliever2: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            reliever2: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "RP3"){
       fetch("/api/cards", {
@@ -495,10 +768,23 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          reliever3: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            reliever3: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }if(searchedPosition === "SU"){
       fetch("/api/cards", {
@@ -510,17 +796,29 @@ function App() {
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          setup: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            setup: data
+          })
           setShow(false)
+        }else{
+          setErr({
+            msg: "Player already in use!"
+          })
+          setShow(false)
+        }
       })
     }
   }
 
   const filterChange = (e) => {
     let filterKey = e.target.id
-    console.log(e.target.value)
     if(filterKey === "series"){
       setFilter({
         ...searchFilter,
@@ -532,7 +830,6 @@ function App() {
         ...searchFilter,
         name: e.target.value
       })
-      console.log(searchFilter)
     }
      else if(filterKey === "Primary"){
       setFilter({
