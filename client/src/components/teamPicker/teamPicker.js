@@ -9,7 +9,7 @@ const TeamPicker = (props) => {
   const starterSearch = () => {
       if(props.roster.firstStarter){
           return(
-              <PlayerCard className="card" id="SP" cardInfo={props.roster.firstStarter} rosterClear={props.rosterClear} />
+              <PlayerCard picked="true" className="card" id="SP" cardInfo={props.roster.firstStarter} rosterClear={props.rosterClear} />
           )
       }else{
           return(
@@ -20,7 +20,7 @@ const TeamPicker = (props) => {
     const starter2Search = () => {
       if(props.roster.starter2){
           return(
-              <PlayerCard className="card" id="SP2" cardInfo={props.roster.starter2} rosterClear={props.rosterClear} />
+              <PlayerCard picked="true" className="card" id="SP2" cardInfo={props.roster.starter2} rosterClear={props.rosterClear} />
           )
       }else{
           return(
@@ -31,7 +31,7 @@ const TeamPicker = (props) => {
   const starter3Search = () => {
     if(props.roster.starter3){
         return(
-            <PlayerCard className="card" id="SP3" cardInfo={props.roster.starter3} rosterClear={props.rosterClear} />
+            <PlayerCard picked="true" className="card" id="SP3" cardInfo={props.roster.starter3} rosterClear={props.rosterClear} />
         )
     }else{
         return(
@@ -42,7 +42,7 @@ const TeamPicker = (props) => {
   const starter4Search = () => {
     if(props.roster.starter4){
         return(
-            <PlayerCard className="card" id="SP4" cardInfo={props.roster.starter4} rosterClear={props.rosterClear} />
+            <PlayerCard picked="true" className="card" id="SP4" cardInfo={props.roster.starter4} rosterClear={props.rosterClear} />
         )
     }else{
         return(
@@ -53,7 +53,7 @@ const TeamPicker = (props) => {
 const starter5Search = () => {
   if(props.roster.starter5){
       return(
-          <PlayerCard className="card" id="SP5" cardInfo={props.roster.starter5} rosterClear={props.rosterClear} />
+          <PlayerCard picked="true" className="card" id="SP5" cardInfo={props.roster.starter5} rosterClear={props.rosterClear} />
       )
   }else{
       return(
@@ -64,7 +64,7 @@ const starter5Search = () => {
 const relieverSearch = () => {
   if(props.roster.reliever1){
       return(
-          <PlayerCard className="card" id="RP" cardInfo={props.roster.reliever1} rosterClear={props.rosterClear} />
+          <PlayerCard picked="true" className="card" id="RP" cardInfo={props.roster.reliever1} rosterClear={props.rosterClear} />
       )
   }else{
       return(
@@ -75,7 +75,7 @@ const relieverSearch = () => {
 const reliever2Search = () => {
   if(props.roster.reliever2){
       return(
-          <PlayerCard className="card" id="RP2" cardInfo={props.roster.reliever2} rosterClear={props.rosterClear} />
+          <PlayerCard picked="true" className="card" id="RP2" cardInfo={props.roster.reliever2} rosterClear={props.rosterClear} />
       )
   }else{
       return(
@@ -86,7 +86,7 @@ const reliever2Search = () => {
 const reliever3Search = () => {
   if(props.roster.reliever3){
       return(
-          <PlayerCard className="card" id="RP3" cardInfo={props.roster.reliever3} rosterClear={props.rosterClear} />
+          <PlayerCard picked="true" className="card" id="RP3" cardInfo={props.roster.reliever3} rosterClear={props.rosterClear} />
       )
   }else{
       return(
@@ -97,7 +97,7 @@ const reliever3Search = () => {
 const setupSearch = () => {
   if(props.roster.setup){
       return(
-          <PlayerCard className="card" id="SU" cardInfo={props.roster.setup} rosterClear={props.rosterClear} />
+          <PlayerCard picked="true" className="card" id="SU" cardInfo={props.roster.setup} rosterClear={props.rosterClear} />
       )
   }else{
       return(
@@ -108,7 +108,7 @@ const setupSearch = () => {
     const closerSearch = () => {
       if(props.roster.closer){
           return(
-              <PlayerCard className="card" id="CP" cardInfo={props.roster.closer} rosterClear={props.rosterClear} />
+              <PlayerCard picked="true" className="card" id="CP" cardInfo={props.roster.closer} rosterClear={props.rosterClear} />
           )
       }else{
           return(
@@ -119,7 +119,7 @@ const setupSearch = () => {
     const leftFieldSearch = () => {
         if(props.roster.leftField){
             return(
-                <PlayerCard className="card" id="LF" cardInfo={props.roster.leftField} rosterClear={props.rosterClear} />
+                <PlayerCard picked="true" className="card" id="LF" cardInfo={props.roster.leftField} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -130,7 +130,7 @@ const setupSearch = () => {
     const centerFieldSearch = () => {
         if(props.roster.centerField){
             return(
-                <PlayerCard className="card" id="CF" cardInfo={props.roster.centerField} rosterClear={props.rosterClear} />
+                <PlayerCard picked="true" className="card" id="CF" cardInfo={props.roster.centerField} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -141,7 +141,7 @@ const setupSearch = () => {
     const rightFieldSearch = () => {
         if(props.roster.rightField){
             return(
-                <PlayerCard className="card" id="RF" cardInfo={props.roster.rightField} rosterClear={props.rosterClear} />
+                <PlayerCard picked="true" className="card" id="RF" cardInfo={props.roster.rightField} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -152,7 +152,7 @@ const setupSearch = () => {
     const thirdBaseSearch = () => {
         if(props.roster.thirdBase){
             return(
-                <PlayerCard className="card" id="3B" cardInfo={props.roster.thirdBase} rosterClear={props.rosterClear} />
+                <PlayerCard picked="true" className="card" id="3B" cardInfo={props.roster.thirdBase} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -163,7 +163,7 @@ const setupSearch = () => {
     const shortStopSearch = () => {
         if(props.roster.shortStop){
             return(
-                <PlayerCard className="card" id="SS" cardInfo={props.roster.shortStop} rosterClear={props.rosterClear} />
+                <PlayerCard picked="true" className="card" id="SS" cardInfo={props.roster.shortStop} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -174,7 +174,7 @@ const setupSearch = () => {
     const secondBaseSearch = () => {
         if(props.roster.secondBase){
             return(
-                <PlayerCard className="card" id="2B" cardInfo={props.roster.secondBase} rosterClear={props.rosterClear} />
+                <PlayerCard picked="true" className="card" id="2B" cardInfo={props.roster.secondBase} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -185,7 +185,7 @@ const setupSearch = () => {
     const firstBaseSearch = () => {
         if(props.roster.firstBase){
             return(
-                <PlayerCard className="card" id="1B" cardInfo={props.roster.firstBase} rosterClear={props.rosterClear} />
+                <PlayerCard picked="true" className="card" id="1B" cardInfo={props.roster.firstBase} rosterClear={props.rosterClear} />
             )
         }else{
             return(
@@ -196,7 +196,7 @@ const setupSearch = () => {
     const catcherSearch = () => {
         if(props.roster.catcher){
             return(
-                <PlayerCard className="card" id="C" cardInfo={props.roster.catcher} rosterClear={props.rosterClear} />
+                <PlayerCard picked="true" className="card" id="C" cardInfo={props.roster.catcher} rosterClear={props.rosterClear} />
             ) 
         }else{
             return(
@@ -207,7 +207,7 @@ const setupSearch = () => {
     const bench1Search = () => {
       if(props.roster.bench1){
           return(
-              <PlayerCard className="card" id="B1" cardInfo={props.roster.bench1} rosterClear={props.rosterClear} />
+              <PlayerCard picked="true" className="card" id="B1" cardInfo={props.roster.bench1} rosterClear={props.rosterClear} />
           ) 
       }else{
           return(
@@ -218,7 +218,7 @@ const setupSearch = () => {
     const bench2Search = () => {
       if(props.roster.bench2){
           return(
-              <PlayerCard className="card" id="B2" cardInfo={props.roster.bench2} rosterClear={props.rosterClear} />
+              <PlayerCard picked="true" className="card" id="B2" cardInfo={props.roster.bench2} rosterClear={props.rosterClear} />
           ) 
       }else{
           return(
@@ -229,7 +229,7 @@ const setupSearch = () => {
     const bench3Search = () => {
       if(props.roster.bench3){
           return(
-              <PlayerCard className="card" id="B3" cardInfo={props.roster.bench3} rosterClear={props.rosterClear} />
+              <PlayerCard picked="true" className="card" id="B3" cardInfo={props.roster.bench3} rosterClear={props.rosterClear} />
           ) 
       }else{
           return(
@@ -240,7 +240,7 @@ const setupSearch = () => {
     const bench4Search = () => {
       if(props.roster.bench4){
           return(
-              <PlayerCard className="card" id="B4" cardInfo={props.roster.bench4} rosterClear={props.rosterClear} />
+              <PlayerCard picked="true" className="card" id="B4" cardInfo={props.roster.bench4} rosterClear={props.rosterClear} />
           ) 
       }else{
           return(
@@ -251,7 +251,7 @@ const setupSearch = () => {
     const bench5Search = () => {
       if(props.roster.bench5){
           return(
-              <PlayerCard className="card" id="B5" cardInfo={props.roster.bench5} rosterClear={props.rosterClear} />
+              <PlayerCard picked="true" className="card" id="B5" cardInfo={props.roster.bench5} rosterClear={props.rosterClear} />
           ) 
       }else{
           return(
@@ -265,7 +265,7 @@ const setupSearch = () => {
                 <Row className="modalRow">
                 {props.playerSearch.map((player) => {
                   return(
-                    <Col className="cardCol" lg={2}>  
+                    <Col className="cardCol" lg={3}>  
                       <PlayerCard cardInfo={player} rosterSet={props.rosterSet} />
                     </Col>
                   )
@@ -280,7 +280,7 @@ const setupSearch = () => {
           <Container>
             <Modal className="searchModal"  show={props.show} onHide={props.handleClose}>
               <Modal.Title>
-                <OptionsMenu searchFilter={props.searchFilter} setDDShow={props.setDDShow} DDshow={props.DDshow} searchButton={props.searchButton} filterChange={props.filterChange} />
+                <OptionsMenu allSeries={props.allSeries} searchFilter={props.searchFilter} setDDShow={props.setDDShow} DDshow={props.DDshow} searchButton={props.searchButton} filterChange={props.filterChange} />
               </Modal.Title>
               {resultsRender()}
             </Modal>
@@ -383,7 +383,7 @@ const setupSearch = () => {
               <Button className="btnStyle" type="submit">SAVE</Button>
               
               </Form>
-              <Button className="btnStyle" onClick={props.teamClear}>CLEAR</Button>
+              {/* <Button className="btnStyle" onClick={props.teamClear}>CLEAR</Button> */}
             </Col>
           </Row>
           <Row>

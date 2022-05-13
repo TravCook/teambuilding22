@@ -1,5 +1,5 @@
 const connection = require('../config/connection');
-const { Player } = require('../models');
+const { Player, Series } = require('../models');
 const axios = require('axios')
 connection.on('error', (err) => err);
 
@@ -32,8 +32,12 @@ connection.once('open', async () => {
 
   })
   await Player.collection.insertMany(players)
-
+  console.info('Player Seeding complete! 🌱');
   
-  console.info('Seeding complete! 🌱');
+
+  await axios.get('https://mlb22.theshow.com/apis/meta_data').then(async (response) =>{
+    await Series.collection.insertMany(response.data.series)
+  })
+  console.info('Series Seeding complete! 🌱');
   process.exit(0);
 })

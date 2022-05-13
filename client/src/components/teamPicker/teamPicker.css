@@ -2,9 +2,13 @@
     width: 13rem;
     margin: auto;
     text-align: center;
+    position: relative
 }
 .cardCol{
   padding: 5px
+}
+.searchPic{
+  width: 10rem
 }
 .teamContainer{
   max-height: 95vh;

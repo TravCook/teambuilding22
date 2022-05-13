@@ -1,17 +1,29 @@
 .playerPic{
   height: auto;
-  width: 110px;
+  width: 100%;
   margin: auto
 }
-
 .playerName{
   margin: 0px;
   padding: 0px
 }
-
 .overall{
-  padding: 0px
+  text-align: right;
+  color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  position: absolute;
+  top: 0px;
+  right: 0px
 }
 .cardCol{
   padding: 0px
+}
+.removeButton{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: red;
+  padding: 3px;
+  font-size: 20px;
 }
