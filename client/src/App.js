@@ -865,10 +865,18 @@ function App() {
   const filterChange = (e) => {
     let filterKey = e.target.id
     if(e.target.parentNode.id === "series"){
-      setFilter({
-        ...searchFilter,
-        series: e.target.text
-      })
+      if(e.target.text === "All"){
+        setFilter({
+          ...searchFilter,
+          series: undefined
+        })
+      }else{
+        setFilter({
+          ...searchFilter,
+          series: e.target.text
+        })
+      }
+      
     }
     else if(filterKey === "name"){
       setFilter({
