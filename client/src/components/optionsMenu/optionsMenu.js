@@ -4,6 +4,21 @@ import DropdownMenu from 'react-bootstrap/esm/DropdownMenu'
 import "./optionsMenu.css"
 
 const OptionsMenu = (props) => {
+  const seriesDropDown = () => {
+    return(
+      <Dropdown.Menu id="series">
+    {props.allSeries.map((series) => {
+      return(
+        
+          <Dropdown.Item onClick={props.filterChange} key={series.name} id={series.name}>{series.name}</Dropdown.Item>
+        
+        )
+    })}
+    </Dropdown.Menu>
+    )
+    
+  }
+  
   return (
     <Form className="optionsMenu">
       <Row>
@@ -232,10 +247,9 @@ const OptionsMenu = (props) => {
             id="Series"
             onChange={props.filterChange}
             >Series</Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={props.filterChange} id="series">Live</Dropdown.Item>
-              <Dropdown.Item onClick={props.filterChange} id="series">Live Series</Dropdown.Item> 
-            </Dropdown.Menu>
+            
+              {seriesDropDown()}
+            
           </Dropdown>
         </Col>
       </Row>

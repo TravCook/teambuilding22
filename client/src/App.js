@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import './App.css';
+import {Modal} from 'react-bootstrap'
 import NavbarEl from './components/navbar/navbar.js'
 import TeamPicker from './components/teamPicker/teamPicker';
 import SignupModal from './components/signupModal/signupModal';
@@ -46,6 +47,7 @@ function App() {
   const handleLoginClose = () =>{ setLoginShow(false)};
   const handleLoginShow = () => setLoginShow(true);
   const [allPlayers, setPlayers] = useState()
+  const [allSeries, setSeries] = useState()
   const [activeRoster, setRoster] = useState({
     leftField: undefined,
     centerField: undefined,
@@ -71,11 +73,12 @@ function App() {
     setup: undefined,
     closer: undefined
   })
+  const [errorShow, setErrShow] = useState(false)
   const [teams, setTeams] = useState([])
   const handleTVPageChange = (e) => {
-    console.log(e.target.id)
     setTVPage(e.target.id)
   }
+
 
   const handleSignupChange = (event) => {
     const { id, value } = event.target;
@@ -160,12 +163,123 @@ function App() {
   }
 
   const rosterClear = (e) => {
-    defaultFilter() 
-    handleShow()
-    setSearch([])
-    PlayerSearchandSort(e.target.id)
-    setSearchPos(e.target.id)
-    defaultFilter()
+    if(e.target.id === "C"){
+      setRoster({
+        ...activeRoster,
+        catcher: undefined
+      })
+    }
+    if(e.target.id === "1B"){
+      setRoster({
+        ...activeRoster,
+        firstBase: undefined
+      })
+    }if(e.target.id === "2B"){
+      setRoster({
+        ...activeRoster,
+        secondBase: undefined
+      })
+    }if(e.target.id === "SS"){
+      setRoster({
+        ...activeRoster,
+        shortStop: undefined
+      })
+    }if(e.target.id === "3B"){
+      setRoster({
+        ...activeRoster,
+        thirdBase: undefined
+      })
+    }if(e.target.id === "RF"){
+      setRoster({
+        ...activeRoster,
+        rightField: undefined
+      })
+    }if(e.target.id === "CF"){
+      setRoster({
+        ...activeRoster,
+        centerField: undefined
+      })
+    }if(e.target.id === "LF"){
+      setRoster({
+        ...activeRoster,
+        leftField: undefined
+      })
+    }if(e.target.id === "SP"){
+      setRoster({
+        ...activeRoster,
+        firstStarter: undefined
+      })
+    }if(e.target.id === "CP"){
+      setRoster({
+        ...activeRoster,
+        closer: undefined
+      })
+    }if(e.target.id === "B1"){
+      setRoster({
+        ...activeRoster,
+        bench1: undefined
+      })
+    }if(e.target.id === "B2"){
+      setRoster({
+        ...activeRoster,
+        bench2: undefined
+      })
+    }if(e.target.id === "B3"){
+      setRoster({
+        ...activeRoster,
+        bench3: undefined
+      })
+    }if(e.target.id === "B4"){
+      setRoster({
+        ...activeRoster,
+        bench4: undefined
+      })
+    }if(e.target.id === "B5"){
+      setRoster({
+        ...activeRoster,
+        bench5: undefined
+      })
+    }if(e.target.id === "SP2"){
+      setRoster({
+        ...activeRoster,
+        starter2: undefined
+      })
+    }if(e.target.id === "SP3"){
+      setRoster({
+        ...activeRoster,
+        starter3: undefined
+      })
+    }if(e.target.id === "SP4"){
+      setRoster({
+        ...activeRoster,
+        starter4: undefined
+      })
+    }if(e.target.id === "SP5"){
+      setRoster({
+        ...activeRoster,
+        starter5: undefined
+      })
+    }if(e.target.id === "RP"){
+      setRoster({
+        ...activeRoster,
+        reliever1: undefined
+      })
+    }if(e.target.id === "RP2"){
+      setRoster({
+        ...activeRoster,
+        reliever2: undefined
+      })
+    }if(e.target.id === "RP3"){
+      setRoster({
+        ...activeRoster,
+        reliever3: undefined
+      })
+    }if(e.target.id === "SU"){
+      setRoster({
+        ...activeRoster,
+        setup: undefined
+      })
+    }
   }
   const rosterSet = (e) => {
     if(searchedPosition === "C"){
@@ -174,15 +288,25 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          catcher: data})
-        setShow(false)
-      })
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            catcher: data
+          })
+          setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
+        })
     }
     if(searchedPosition === "1B"){
       fetch("/api/cards", {
@@ -190,14 +314,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          firstBase: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            firstBase: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "2B"){
       fetch("/api/cards", {
@@ -205,14 +339,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          secondBase: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            secondBase: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "SS"){
       fetch("/api/cards", {
@@ -220,14 +364,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          shortStop: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            shortStop: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "3B"){
       fetch("/api/cards", {
@@ -235,14 +389,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          thirdBase: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            thirdBase: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "RF"){
       fetch("/api/cards", {
@@ -250,14 +414,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          rightField: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            rightField: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "CF"){
       fetch("/api/cards", {
@@ -265,14 +439,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          centerField: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            centerField: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "LF"){
       fetch("/api/cards", {
@@ -280,14 +464,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          leftField: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            leftField: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "SP"){
       fetch("/api/cards", {
@@ -295,14 +489,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          firstStarter: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            firstStarter: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "CP"){
       fetch("/api/cards", {
@@ -310,14 +514,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          closer: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            closer: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "B1"){
       fetch("/api/cards", {
@@ -325,14 +539,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench1: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench1: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "B2"){
       fetch("/api/cards", {
@@ -340,14 +564,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench2: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench2: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "B3"){
       fetch("/api/cards", {
@@ -355,14 +589,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench3: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench3: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "B4"){
       fetch("/api/cards", {
@@ -370,14 +614,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench4: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench4: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "B5"){
       fetch("/api/cards", {
@@ -385,14 +639,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          bench5: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            bench5: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "SP2"){
       fetch("/api/cards", {
@@ -400,14 +664,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          starter2: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            starter2: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "SP3"){
       fetch("/api/cards", {
@@ -415,14 +689,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          starter3: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            starter3: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "SP4"){
       fetch("/api/cards", {
@@ -430,14 +714,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          starter4: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            starter4: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "SP5"){
       fetch("/api/cards", {
@@ -445,14 +739,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          starter5: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            starter5: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "RP"){
       fetch("/api/cards", {
@@ -460,14 +764,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          reliever1: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            reliever1: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }
     if(searchedPosition === "RP2"){
@@ -476,14 +790,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          reliever2: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            reliever2: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "RP3"){
       fetch("/api/cards", {
@@ -491,14 +815,24 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          reliever3: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            reliever3: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }if(searchedPosition === "SU"){
       fetch("/api/cards", {
@@ -506,22 +840,31 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid: e.target.parentNode.id})}
+        body: JSON.stringify({uuid: e.target.id})}
       ).then((res) => 
         res.json()
       ).then((data) => {
-        setRoster({
-          ...activeRoster,
-          setup: data})
+        const exists = Object.keys(activeRoster).some((test) => {
+          if(activeRoster[test]){
+            return activeRoster[test].name === data.name
+          }
+        })
+        if(!exists){
+          setRoster({
+            ...activeRoster,
+            setup: data
+          })
           setShow(false)
+        }else{
+          window.alert("Player Already in Use")
+        }
       })
     }
   }
 
   const filterChange = (e) => {
     let filterKey = e.target.id
-    console.log(e.target.value)
-    if(filterKey === "series"){
+    if(e.target.parentNode.id === "series"){
       setFilter({
         ...searchFilter,
         series: e.target.text
@@ -532,7 +875,6 @@ function App() {
         ...searchFilter,
         name: e.target.value
       })
-      console.log(searchFilter)
     }
      else if(filterKey === "Primary"){
       setFilter({
@@ -581,49 +923,85 @@ function App() {
         let secPos = player.display_secondary_positions.split(", ")
         if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
           if(player.is_hitter){
-            if(searchFilter.name && searchFilter.searchTeams){
+            if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
               if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                 searchStorage.push(player)
               }
             }
-            else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+            else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
+              if(player.series === searchFilter.series){
+                if(searchFilter.searchTeams.includes(player.team)){
+                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                    searchStorage.push(player)
+                  }
+                }
+              }
+            }
+            else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
+              if(player.series === searchFilter.series){
+                if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                  searchStorage.push(player)
+                }
+              }
+            }
+            else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
               if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                 searchStorage.push(player)
               }
             }
-            else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+            else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
               if(searchFilter.searchTeams.includes(player.team)){
                 searchStorage.push(player)
               }
             }
-            else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
-
+            else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
+              if(player.series === searchFilter.series){
+                searchStorage.push(player)
+              }
             }
             else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
               searchStorage.push(player)
-            }  
+            } 
           }
         }
         if( position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
           if(!player.is_hitter){
             if(player.display_position === "SP"){
-              if(searchFilter.name && searchFilter.searchTeams){
+              if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
                 if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+              else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
+                if(player.series === searchFilter.series){
+                  if(searchFilter.searchTeams.includes(player.team)){
+                    if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                      searchStorage.push(player)
+                    }
+                  }
+                }
+              }
+              else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
+                if(player.series === searchFilter.series){
+                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                    searchStorage.push(player)
+                  }
+                }
+              }
+              else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                 if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+              else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
                 if(searchFilter.searchTeams.includes(player.team)){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
-
+              else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
+                if(player.series === searchFilter.series){
+                  searchStorage.push(player)
+                }
               }
               else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                 searchStorage.push(player)
@@ -634,23 +1012,41 @@ function App() {
         if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU" || position ==="CP"){
           if(!player.is_hitter){
             if(player.display_position === "RP" || player.display_position === "CP"){
-              if(searchFilter.name && searchFilter.searchTeams){
+              if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
                 if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+              else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
+                if(player.series === searchFilter.series){
+                  if(searchFilter.searchTeams.includes(player.team)){
+                    if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                      searchStorage.push(player)
+                    }
+                  }
+                }
+              }
+              else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
+                if(player.series === searchFilter.series){
+                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                    searchStorage.push(player)
+                  }
+                }
+              }
+              else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                 if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+              else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
                 if(searchFilter.searchTeams.includes(player.team)){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
-
+              else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
+                if(player.series === searchFilter.series){
+                  searchStorage.push(player)
+                }
               }
               else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                 searchStorage.push(player)
@@ -660,23 +1056,41 @@ function App() {
         }else{
           if(searchFilter.Primary){
             if(player.display_position === position){
-              if(searchFilter.name && searchFilter.searchTeams){
+              if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
                 if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+              else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
+                if(player.series === searchFilter.series){
+                  if(searchFilter.searchTeams.includes(player.team)){
+                    if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                      searchStorage.push(player)
+                    }
+                  }
+                }
+              }
+              else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
+                if(player.series === searchFilter.series){
+                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                    searchStorage.push(player)
+                  }
+                }
+              }
+              else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                 if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+              else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
                 if(searchFilter.searchTeams.includes(player.team)){
                   searchStorage.push(player)
                 }
               }
-              else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
-
+              else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
+                if(player.series === searchFilter.series){
+                  searchStorage.push(player)
+                }
               }
               else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                 searchStorage.push(player)
@@ -687,23 +1101,41 @@ function App() {
           if(searchFilter.Secondary){
             secPos.map((secondary) => {
               if(secondary === position){
-                if(searchFilter.name && searchFilter.searchTeams){
+                if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
                   if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                     searchStorage.push(player)
                   }
                 }
-                else if(searchFilter.name && ! searchFilter.searchTeams && ! searchFilter.series){
+                else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
+                  if(player.series === searchFilter.series){
+                    if(searchFilter.searchTeams.includes(player.team)){
+                      if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                        searchStorage.push(player)
+                      }
+                    }
+                  }
+                }
+                else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
+                  if(player.series === searchFilter.series){
+                    if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
+                      searchStorage.push(player)
+                    }
+                  }
+                }
+                else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                   if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
                     searchStorage.push(player)
                   }
                 }
-                else if(searchFilter.searchTeams && ! searchFilter.name && ! searchFilter.series){
+                else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
                   if(searchFilter.searchTeams.includes(player.team)){
                     searchStorage.push(player)
                   }
                 }
-                else if(searchFilter.series & ! searchFilter.name && ! searchFilter.searchTeams){
-  
+                else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
+                  if(player.series === searchFilter.series){
+                    searchStorage.push(player)
+                  }
                 }
                 else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
                   searchStorage.push(player)
@@ -734,9 +1166,18 @@ function App() {
       setPlayers(data)
     })
   }
+  const getAllSeries = () => {
+    fetch('/api/series')
+    .then((res) =>
+      res.json() 
+    ).then((data) => {
+      setSeries(data)
+    })
+  }
 
   useEffect(() => {
     getAllCards()
+    getAllSeries()
   }, [])
   useEffect(() => {
     PlayerSearchandSort(searchedPosition, searchFilter)
@@ -836,7 +1277,7 @@ function App() {
   return (
     <div className="App">
       <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
-      <TeamPicker searchFilter={searchFilter} setDDShow={setDDShow}DDshow={DDshow} teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+      <TeamPicker allSeries={allSeries} searchFilter={searchFilter} setDDShow={setDDShow}DDshow={DDshow} teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
       <SignupModal signupFormState={signupFormState} errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
       <LoginModal loginFormState={loginFormState}errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
