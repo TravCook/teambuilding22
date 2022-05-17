@@ -7,6 +7,9 @@
 .cardCol{
   padding: 5px
 }
+.hidden{
+  opacity: 0;
+}
 .searchPic{
   width: 10rem
 }

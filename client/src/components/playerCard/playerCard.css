@@ -8,13 +8,31 @@
   padding: 0px
 }
 .overall{
-  text-align: right;
+  width: 25%;
+  text-align: center;
+  font-size: x-large;
   color: white;
-  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-width: .2px;
   -webkit-text-stroke-color: black;
   position: absolute;
   top: 0px;
-  right: 0px
+  right: 0px;
+  border-radius: 20%;
+}
+.diamond{
+  background-image: linear-gradient(45deg, #022470, #319ae2);
+}
+.gold{
+  background-image: linear-gradient(45deg, #594300, #e3b412);
+}
+.silver{
+  background-image: linear-gradient(45deg, #302f2f, #a4a2a3);
+}
+.bronze{
+  background-image: linear-gradient(45deg, #744535, #c2875a);
+}
+.common{
+  background-color: black;
 }
 .cardCol{
   padding: 0px

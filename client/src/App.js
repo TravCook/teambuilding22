@@ -11,6 +11,7 @@ import Auth from './utils/auth.js';
 
 
 function App() {
+  const [pageIndex, setPageIndex] = useState(0)
   const [DDshow, setDDShow ] = useState(false);
   const [teamViewPage, setTVPage] = useState("field")
   const [errorMsg, setErr] = useState()
@@ -33,7 +34,7 @@ function App() {
     Primary: true,
     Secondary: true,
     name: undefined,
-    team: undefined,
+    searchTeams: undefined,
     series: undefined
   })
   const [show, setShow] = useState(false);
@@ -920,242 +921,27 @@ function App() {
     }
   }
   
-  const searchButton =(e) =>{
-    e.preventDefault()
-    PlayerSearchandSort(searchedPosition)
-  }
+  // const searchButton =(e) =>{
+  //   e.preventDefault()
+  //   PlayerSearchandSort(searchedPosition)
+  // }
   const PlayerSearchandSort = (position) => {
-    let searchStorage = []
-    if(allPlayers){
-      allPlayers.map((player)=> {
-        let secPos = player.display_secondary_positions.split(", ")
-        if(position === "B1" || position === "B2" || position === "B3" || position === "B4" || position === "B5"){
-          if(player.is_hitter){
-            if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
-              if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                searchStorage.push(player)
-              }
-            }
-            else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
-              if(player.series === searchFilter.series){
-                if(searchFilter.searchTeams.includes(player.team)){
-                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                    searchStorage.push(player)
-                  }
-                }
-              }
-            }
-            else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
-              if(player.series === searchFilter.series){
-                if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                  searchStorage.push(player)
-                }
-              }
-            }
-            else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-              if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                searchStorage.push(player)
-              }
-            }
-            else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
-              if(searchFilter.searchTeams.includes(player.team)){
-                searchStorage.push(player)
-              }
-            }
-            else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
-              if(player.series === searchFilter.series){
-                searchStorage.push(player)
-              }
-            }
-            else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-              searchStorage.push(player)
-            } 
-          }
-        }
-        if( position==="SP2" || position==="SP3" || position==="SP4" || position==="SP5"){
-          if(!player.is_hitter){
-            if(player.display_position === "SP"){
-              if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
-                if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
-                if(player.series === searchFilter.series){
-                  if(searchFilter.searchTeams.includes(player.team)){
-                    if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                      searchStorage.push(player)
-                    }
-                  }
-                }
-              }
-              else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
-                if(player.series === searchFilter.series){
-                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                    searchStorage.push(player)
-                  }
-                }
-              }
-              else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-                if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
-                if(searchFilter.searchTeams.includes(player.team)){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
-                if(player.series === searchFilter.series){
-                  searchStorage.push(player)
-                }
-              }
-              else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-                searchStorage.push(player)
-              }
-            }
-          }
-        }
-        if(position==="RP" || position==="RP2" || position==="RP3" || position==="SU" || position ==="CP"){
-          if(!player.is_hitter){
-            if(player.display_position === "RP" || player.display_position === "CP"){
-              if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
-                if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
-                if(player.series === searchFilter.series){
-                  if(searchFilter.searchTeams.includes(player.team)){
-                    if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                      searchStorage.push(player)
-                    }
-                  }
-                }
-              }
-              else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
-                if(player.series === searchFilter.series){
-                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                    searchStorage.push(player)
-                  }
-                }
-              }
-              else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-                if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
-                if(searchFilter.searchTeams.includes(player.team)){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
-                if(player.series === searchFilter.series){
-                  searchStorage.push(player)
-                }
-              }
-              else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-                searchStorage.push(player)
-              }
-            }
-          }
-        }else{
-          if(searchFilter.Primary){
-            if(player.display_position === position){
-              if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
-                if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
-                if(player.series === searchFilter.series){
-                  if(searchFilter.searchTeams.includes(player.team)){
-                    if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                      searchStorage.push(player)
-                    }
-                  }
-                }
-              }
-              else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
-                if(player.series === searchFilter.series){
-                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                    searchStorage.push(player)
-                  }
-                }
-              }
-              else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-                if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
-                if(searchFilter.searchTeams.includes(player.team)){
-                  searchStorage.push(player)
-                }
-              }
-              else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
-                if(player.series === searchFilter.series){
-                  searchStorage.push(player)
-                }
-              }
-              else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-                searchStorage.push(player)
-              }
-               
-            }
-          }
-          if(searchFilter.Secondary){
-            secPos.map((secondary) => {
-              if(secondary === position){
-                if(searchFilter.name && searchFilter.searchTeams && !searchFilter.series){
-                  if(searchFilter.searchTeams.includes(player.team) && player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                    searchStorage.push(player)
-                  }
-                }
-                else if(searchFilter.name && searchFilter.searchTeams && searchFilter.series){
-                  if(player.series === searchFilter.series){
-                    if(searchFilter.searchTeams.includes(player.team)){
-                      if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                        searchStorage.push(player)
-                      }
-                    }
-                  }
-                }
-                else if(searchFilter.name && searchFilter.series && !searchFilter.searchTeams){
-                  if(player.series === searchFilter.series){
-                    if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                      searchStorage.push(player)
-                    }
-                  }
-                }
-                else if(searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-                  if(player.name.toLowerCase().includes(searchFilter.name.toLowerCase())){
-                    searchStorage.push(player)
-                  }
-                }
-                else if(searchFilter.searchTeams && !searchFilter.name && !searchFilter.series){
-                  if(searchFilter.searchTeams.includes(player.team)){
-                    searchStorage.push(player)
-                  }
-                }
-                else if(searchFilter.series && !searchFilter.name && !searchFilter.searchTeams){
-                  if(player.series === searchFilter.series){
-                    searchStorage.push(player)
-                  }
-                }
-                else if(!searchFilter.name && !searchFilter.searchTeams && !searchFilter.series){
-                  searchStorage.push(player)
-                }
-              }
-            })
-          }
-        }
-      })
-    searchStorage.sort((a,b) => b.ovr - a.ovr)
-    setSearch(searchStorage)
-    }
+    // defaultFilter()
+    fetch("/api/cards/search", {
+      method: "POST",
+      body: JSON.stringify({
+        ...searchFilter,
+        position: searchedPosition
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+    .then((res) => 
+      res.json()
+    ).then((data) => {
+      setSearch(data)
+    })
   }
   const searchFunction = (e) => {
     defaultFilter() 
@@ -1163,7 +949,6 @@ function App() {
     handleShow()
     let posSearch = e.target.parentNode.id
     setSearchPos(posSearch)
-    PlayerSearchandSort(posSearch, searchFilter)
   }
 
   const getAllCards = () => {
@@ -1184,7 +969,7 @@ function App() {
   }
 
   useEffect(() => {
-    getAllCards()
+    // getAllCards()
     getAllSeries()
   }, [])
   useEffect(() => {
@@ -1198,6 +983,7 @@ function App() {
       Secondary: true,
       name: undefined,
     })
+    setPageIndex(0)
   }
   const saveTeam = (e) => {
     e.preventDefault()
@@ -1216,7 +1002,6 @@ function App() {
     }).then((res) => {
       return res.json()
     }).then((data) => {
-      console.log(data)
     })
   }
   const handleTeamNameChange = (e) => {
@@ -1285,7 +1070,7 @@ function App() {
   return (
     <div className="App">
       <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
-      <TeamPicker allSeries={allSeries} searchFilter={searchFilter} setDDShow={setDDShow}DDshow={DDshow} teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam} searchButton={searchButton} filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+      <TeamPicker pageIndex={pageIndex} setPageIndex={setPageIndex} allSeries={allSeries} searchFilter={searchFilter} setDDShow={setDDShow}DDshow={DDshow} teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam}  filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
       <SignupModal signupFormState={signupFormState} errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
       <LoginModal loginFormState={loginFormState}errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
