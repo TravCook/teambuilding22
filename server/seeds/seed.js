@@ -7,7 +7,7 @@ connection.once('open', async () => {
    console.log('db connected')
 
    await Player.deleteMany({})
-
+   await Series.deleteMany({})
    const players = []
 
    let urls = []
@@ -21,6 +21,8 @@ connection.once('open', async () => {
     try{
       data.map((item) => {
       item.data.items.map((player) => {
+          let secPos = player.display_secondary_positions.split(', ')
+          player.display_secondary_positions = secPos
           players.push(player)
           return players
       })

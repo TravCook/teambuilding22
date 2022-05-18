@@ -44,11 +44,17 @@ const playerSchema = new Schema({
     imgLink: {
         type: String,
     },
-    position: {
+    display_position: {
         type: String
     },
-    secondary_positions: {
-        type: String
+    display_secondary_positions: {
+        type: Array
+    },
+    series: {
+      type: String
+    },
+    is_hitter: {
+      type: Boolean
     }
 
 })
