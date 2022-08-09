@@ -4,6 +4,19 @@
     text-align: center;
     position: relative
 }
+.pageEnd{
+  float: right;
+}
+.numberButton{
+  padding: 6px ;
+  width: 31.25px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0);
+}
+.pageinateCol{
+  padding: 0;
+  text-align: center;
+}
 .cardCol{
   padding: 5px
 }

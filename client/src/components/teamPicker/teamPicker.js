@@ -8,7 +8,7 @@ import OptionsMenu from '../optionsMenu/optionsMenu.js'
 
 const TeamPicker = (props) => {
   const chunkedPlayers = []
-  // let pageIndex = 0
+  const [pageIndex, setPageIndex] = useState(0)
   
   if(props.playerSearch){
    for(let i=0;i<props.playerSearch.length; i+=18){
@@ -270,12 +270,12 @@ const bench5Search = () => {
   }
 }
 const resultsRender = () => {
-  if(chunkedPlayers[props.pageIndex] || props.playerSearch){
+  if(chunkedPlayers[pageIndex] || props.playerSearch){
     return(
       <>
         <Row className="modalRow">
           {props.playerSearch.length > 18 ? 
-            chunkedPlayers[props.pageIndex].map((player) => {
+            chunkedPlayers[pageIndex].map((player) => {
               return(
                 <Col className="cardCol" lg={2}>  
                   <PlayerCard cardInfo={player} rosterSet={props.rosterSet} />
@@ -297,22 +297,22 @@ const resultsRender = () => {
 }
 useEffect(() => {
   resultsRender()
-}, [props.pageIndex])
+}, [pageIndex])
 const handlePaginationUp = () => {
-  props.setPageIndex(props.pageIndex+1)
+  setPageIndex(pageIndex+1)
 }
 const handlePaginationDown = () => {
-  props.setPageIndex(props.pageIndex-1)
+  setPageIndex(pageIndex-1)
 }
 const pageIndexReset = () => {
-  props.setPageIndex(0)
+  setPageIndex(0)
 }
 const pageIndexMax = () => {
-  props.setPageIndex(chunkedPlayers.length -1)
+  setPageIndex(chunkedPlayers.length -1)
 }
 const pageIndexDirect = (e) => {
   const newPage = parseInt(e.target.textContent)
-  props.setPageIndex(newPage)
+  setPageIndex(newPage - 1)
 
 }
 const searchRender = () => {
@@ -323,19 +323,23 @@ const searchRender = () => {
           <Modal.Title>
             <OptionsMenu allSeries={props.allSeries} searchFilter={props.searchFilter} setDDShow={props.setDDShow} DDshow={props.DDshow} searchButton={props.searchButton} filterChange={props.filterChange} />
           </Modal.Title>
-          {resultsRender()}
+          
           <Row className="modalRow">
-            <Col>
+            <Col className="pageinateCol">
             <Button onClick={pageIndexReset}>{'<<'}</Button>
-            {props.pageIndex <= 0 ? <Button className="hidden">{'<'}</Button> : <Button onClick={handlePaginationDown}>{'<'}</Button> }
-            {props.pageIndex < 5 ? <Button className="hidden">{props.pageIndex - 5}</Button> : <Button onClick={pageIndexDirect}>{props.pageIndex - 5}</Button> }
-            <Button>{props.pageIndex}</Button>
-            {props.pageIndex >= chunkedPlayers.length - 5 ? <Button className="hidden">{props.pageIndex + 5}</Button> : <Button onClick={pageIndexDirect}>{props.pageIndex + 5}</Button> }
-            {props.pageIndex >= chunkedPlayers.length - 1 ? <Button className="hidden">{'>'}</Button> : <Button onClick={handlePaginationUp}>{'>'}</Button> }
-            <Button onClick={pageIndexMax}>{'>>'}</Button>
             </Col>
-            
+            {chunkedPlayers.map((chunk, index) => {
+              return(
+                <Col className="pageinateCol">
+                <Button className="numberButton" onClick={pageIndexDirect}> {index + 1}</Button>
+                </Col>
+              )
+            })}
+            <Col className="pageinateCol">
+            <Button className="pageEnd" onClick={pageIndexMax}>{'>>'}</Button>
+            </Col>
           </Row>
+          {resultsRender()}
         </Modal>
       </Container>
     )

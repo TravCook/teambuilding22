@@ -70,7 +70,6 @@ module.exports = {
           $or: [{display_position: "RP"}, {display_position: 'CP'}]
         }
       }
-      console.log(search)
       Player.find(
         search
       ).sort({'ovr': -1}).then((players) => {

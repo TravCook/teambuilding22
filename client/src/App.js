@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import './App.css';
-import {Modal} from 'react-bootstrap'
 import NavbarEl from './components/navbar/navbar.js'
 import TeamPicker from './components/teamPicker/teamPicker';
 import SignupModal from './components/signupModal/signupModal';
@@ -11,7 +10,6 @@ import Auth from './utils/auth.js';
 
 
 function App() {
-  const [pageIndex, setPageIndex] = useState(0)
   const [DDshow, setDDShow ] = useState(false);
   const [teamViewPage, setTVPage] = useState("field")
   const [errorMsg, setErr] = useState()
@@ -47,7 +45,6 @@ function App() {
   const handleSignupShow = () => setSignupShow(true);
   const handleLoginClose = () =>{ setLoginShow(false)};
   const handleLoginShow = () => setLoginShow(true);
-  const [allPlayers, setPlayers] = useState()
   const [allSeries, setSeries] = useState()
   const [activeRoster, setRoster] = useState({
     leftField: undefined,
@@ -921,12 +918,8 @@ function App() {
     }
   }
   
-  // const searchButton =(e) =>{
-  //   e.preventDefault()
-  //   PlayerSearchandSort(searchedPosition)
-  // }
+
   const PlayerSearchandSort = (position) => {
-    // defaultFilter()
     fetch("/api/cards/search", {
       method: "POST",
       body: JSON.stringify({
@@ -949,15 +942,6 @@ function App() {
     handleShow()
     let posSearch = e.target.parentNode.id
     setSearchPos(posSearch)
-  }
-
-  const getAllCards = () => {
-    fetch("/api/cards")
-    .then((res) => 
-      res.json()
-    ).then((data) => {
-      setPlayers(data)
-    })
   }
   const getAllSeries = () => {
     fetch('/api/series')
@@ -983,7 +967,6 @@ function App() {
       Secondary: true,
       name: undefined,
     })
-    setPageIndex(0)
   }
   const saveTeam = (e) => {
     e.preventDefault()
@@ -1039,38 +1022,12 @@ function App() {
       }
     })
   }
-  const teamClear = () => {
-    setRoster({
-      leftField: undefined,
-      centerField: undefined,
-      rightField: undefined,
-      thirdBase: undefined,
-      shortStop: undefined,
-      secondBase: undefined,
-      firstBase: undefined,
-      firstStarter: undefined,
-      catcher: undefined,
-      starter2: undefined,
-      starter3: undefined,
-      starter4: undefined,
-      starter5: undefined,
-      bench1: undefined,
-      bench2: undefined,
-      bench3: undefined,
-      bench4: undefined,
-      bench5: undefined,
-      reliever1: undefined,
-      reliever2: undefined,
-      reliever3: undefined,
-      setup: undefined,
-      closer: undefined
-    })
-  }
+
   getUsersTeams()
   return (
     <div className="App">
-      <NavbarEl playerList={allPlayers} signupShow={handleSignupShow} loginShow={handleLoginShow} />
-      <TeamPicker pageIndex={pageIndex} setPageIndex={setPageIndex} allSeries={allSeries} searchFilter={searchFilter} setDDShow={setDDShow}DDshow={DDshow} teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamClear={teamClear} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam}  filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
+      <NavbarEl signupShow={handleSignupShow} loginShow={handleLoginShow} />
+      <TeamPicker allSeries={allSeries} searchFilter={searchFilter} setDDShow={setDDShow}DDshow={DDshow} teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam}  filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
       <SignupModal signupFormState={signupFormState} errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
       <LoginModal loginFormState={loginFormState}errMsg={errorMsg} handleLoginSubmit={handleLoginSubmit} handleLoginChange={handleLoginChange} loginShow={loginShow} loginClose={handleLoginClose} />
     </div>
