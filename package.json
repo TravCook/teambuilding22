@@ -18,8 +18,12 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
     "moment": "^2.29.1",
     "mongoose": "^6.2.10",
+    "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1",
     "webpack-cli": "^4.10.0"
   }
 }

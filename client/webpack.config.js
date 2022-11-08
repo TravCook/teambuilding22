@@ -30,11 +30,12 @@ module.exports = {
           {
             test: /\.(ts|tsx|js|jsx)$/,
             exclude: /node_modules/,
-            use: {
-              loader: "babel-loader",
-            },
+            loader: "babel-loader",
             options: { presets: ['@babel/env','@babel/preset-react'] },
-          },
+          }, {
+            test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+            loader: 'url-loader',
+          }
         ],
       },
       plugins: [
