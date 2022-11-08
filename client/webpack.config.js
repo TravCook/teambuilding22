@@ -5,7 +5,7 @@ const deps = require('./package.json').dependencies
 
 module.exports = {
     output: {
-        publicPath: "dist/"
+        publicPath: "https://teambuilder22.herokuapp.com/dist/"
     },
     resolve: {
         extensions: [".tsx", ".ts", ".jsx", ".js", ".json"]
