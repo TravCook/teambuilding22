@@ -953,7 +953,6 @@ function App() {
   }
 
   useEffect(() => {
-    // getAllCards()
     getAllSeries()
   }, [])
   useEffect(() => {
