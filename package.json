@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "moment": "^2.29.1",
-    "mongoose": "^6.2.10"
+    "mongoose": "^6.2.10",
+    "webpack-cli": "^4.10.0"
   }
 }
