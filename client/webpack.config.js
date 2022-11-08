@@ -44,7 +44,7 @@ module.exports = {
           filename: "remoteEntry.js",
           remotes: {},
           exposes: {
-            './Teampicker': "./src/components/teamPicker/teamPicker.js"
+            './App': "./src/App.js"
           },
           shared: {
             ...deps,
