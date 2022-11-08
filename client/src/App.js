@@ -920,7 +920,7 @@ function App() {
   
 
   const PlayerSearchandSort = (position) => {
-    fetch("/api/cards/search", {
+    fetch("teambuilder22.herokuapp.com/api/cards/search", {
       method: "POST",
       body: JSON.stringify({
         ...searchFilter,
