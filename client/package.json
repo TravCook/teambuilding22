@@ -23,7 +23,7 @@
     "html-webpack-plugin": "^5.3.2"},
   "scripts": {
     "start": "react-scripts start",
-    "build": "webpack --mode production",
+    "build": "react-scripts build && webpack --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
