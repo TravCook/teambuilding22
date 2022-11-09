@@ -38,7 +38,7 @@ const NavbarEl = (props) => {
   }
     return(
         <Navbar className="navbarMain" >
-                <Col lg={2} className="appName">{props.propsFromMain ? props.propsFromMain?.name : "Teambuilder22"}</Col>
+                <Col lg={2} className="appName">{props.propsFromHome ? props.propsFromHome?.username : "Teambuilder22"}</Col>
                 <Col lg={5}>
                     <Row>Augmented Players:
                     {augmentPlayers()}
