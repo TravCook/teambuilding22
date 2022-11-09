@@ -38,7 +38,7 @@ const NavbarEl = (props) => {
   }
     return(
         <Navbar className="navbarMain" >
-                <Col lg={2} className="appName">TEAMBUILDER 22</Col>
+                <Col lg={2} className="appName">{props.codeHubProps ? props.codeHubProps.name : "Teambuilder22"}</Col>
                 <Col lg={5}>
                     <Row>Augmented Players:
                     {augmentPlayers()}
