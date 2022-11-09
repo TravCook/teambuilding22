@@ -9,7 +9,8 @@ import Auth from './utils/auth.js';
 
 
 
-function App() {
+function App(props) {
+  console.log(props)
   const [DDshow, setDDShow ] = useState(false);
   const [teamViewPage, setTVPage] = useState("field")
   const [errorMsg, setErr] = useState()
