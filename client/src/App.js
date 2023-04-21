@@ -1026,17 +1026,6 @@ function App(props) {
   getUsersTeams()
   return (
     <div className="App">
-            {props? <div> 
-        <li>
-          Name: {props?.codeHubProps?.username}
-        </li>
-        <li>
-          ID: {props?.codeHubProps?.id}
-        </li>
-        <li>
-          Role: {props?.codeHubProps?.role}
-        </li>
-      </div> : null}
       <NavbarEl propsFromHome={props?.codeHubProps} signupShow={handleSignupShow} loginShow={handleLoginShow} />
       <TeamPicker allSeries={allSeries} searchFilter={searchFilter} setDDShow={setDDShow}DDshow={DDshow} teamViewPage={teamViewPage} handleTVPageChange={handleTVPageChange} teamSelect={teamSelect} userTeams={userTeams} handleTeamNameChange={handleTeamNameChange} saveTeam={saveTeam}  filterChange={filterChange} pos={searchedPosition} rosterClear={rosterClear} rosterSet={rosterSet} show={show} handleClose={handleClose} handleShow={handleShow} roster={activeRoster} playerSearch={searchedPlayers} searchFunction={searchFunction}/>
       <SignupModal signupFormState={signupFormState} errMsg={errorMsg} handleSignupSubmit={handleSignupSubmit} handleSignupChange={handleSignupChange} signupShow={signupShow}signupClose={handleSignupClose}/>
